@@ -1,5 +1,5 @@
 import { capitalize } from './common';
-const addComponentVue = (title: string, jsonValue: any) => {
+const vuePage = (title: string, jsonValue: any) => {
   const lowercaseTitle = title.toLowerCase();
   const upperCaseTitle = title.toUpperCase();
   //   console.log(Object.keys(jsonValue));
@@ -9,15 +9,19 @@ const addComponentVue = (title: string, jsonValue: any) => {
   <template>
   <div>
     <${capitalizeTitle}Component />
+    <List${capitalizeTitle}Component />
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import ${capitalizeTitle}Component from '@/components/${capitalizeTitle}Component/${capitalizeTitle}Component.vue'; // @ is an alias to /src
+import ${capitalizeTitle}Component from '@/components/${capitalizeTitle}Component/${capitalizeTitle}Component.vue'; 
+import List${capitalizeTitle}Component from '@/components/${capitalizeTitle}Component/List${capitalizeTitle}Component.vue'; 
+
 @Component({
   components: {
-    ${capitalizeTitle}Component
+    ${capitalizeTitle}Component,
+    List${capitalizeTitle}Component
   }
 })
 export default class ${capitalizeTitle}View extends Vue {}
@@ -27,4 +31,4 @@ export default class ${capitalizeTitle}View extends Vue {}
   return newComponent;
 };
 
-export default addComponentVue;
+export default vuePage;

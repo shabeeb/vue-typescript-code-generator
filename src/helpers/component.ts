@@ -1,4 +1,5 @@
 import { capitalize } from './common';
+import { excludeFieldList } from './config';
 const componentGen = (title: string, jsonValue: any) => {
   const lowercaseTitle = title.toLowerCase();
   const upperCaseTitle = title.toUpperCase();
@@ -16,7 +17,7 @@ const componentGen = (title: string, jsonValue: any) => {
        <v-icon class="ml-1" small>mdi-circle</v-icon>
        <v-icon class="ml-1" small>mdi-triangle</v-icon>
      </v-system-bar>-->
-     <v-alert type="success" v-if="successStatus">${upperCaseTitle} Added succesfully</v-alert>
+     <v-alert type="success" v-if="successStatus">${capitalizeTitle} Added succesfully</v-alert>
      <v-alert type="error" v-if="errorStatus">Something went wrong...</v-alert>
 
      <v-toolbar color="deep-purple accent-4" cards dark flat>
@@ -69,7 +70,11 @@ ${componentVariables(fieldNames)}
 
 
      this.add${capitalizeTitle}Store(data);
+     this.clearForm();
    }
+   private clearForm() {
+    ${clearMethod(fieldNames)}
+  }
  }
  </script>
  `;
@@ -77,7 +82,7 @@ ${componentVariables(fieldNames)}
 };
 
 const textFileds = (fileds: any) => {
-  const excludeFieldList = ['created', 'modified', 'id'];
+  //   const excludeFieldList = ['created', 'modified', 'id'];
 
   let filedsList: string = '';
   fileds.map((field: any) => {
@@ -101,8 +106,10 @@ const componentVariables = (fileds: any) => {
   let variableList: string = `  public form: boolean = false;
   private isLoading: boolean = false;`;
   fileds.map((field: any) => {
-    variableList += ` private ${field}: string = '';
+    if (!excludeFieldList.includes(field)) {
+      variableList += ` private ${field}: string = '';
     `;
+    }
   });
 
   return variableList;
@@ -111,10 +118,23 @@ const componentVariables = (fileds: any) => {
 const addMethod = (fileds: any) => {
   let variableList: string = 'const data = {';
   fileds.map((field: any) => {
-    variableList += ` ${field}: this.${field},
+    if (!excludeFieldList.includes(field)) {
+      variableList += ` ${field}: this.${field},
       `;
+    }
   });
   variableList += '}';
+
+  return variableList;
+};
+
+const clearMethod = (fileds: any) => {
+  let variableList: string = '';
+  fileds.map((field: any) => {
+    if (!excludeFieldList.includes(field)) {
+      variableList += ` this.${field} = ''; `;
+    }
+  });
 
   return variableList;
 };

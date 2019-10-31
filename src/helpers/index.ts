@@ -4,8 +4,13 @@ import componentActions from './actions';
 import componentMutation from './mutations';
 import componentGetters from './getters';
 import componentStoreIndex from './storeindex';
-import addComponentVue from './addComponentVue';
+import vuePage from './vuePage';
 import listComponent from './listComponent';
+import {
+  routerSnippet,
+  storeImportSnippet,
+  storeModuleNameSnippet,
+} from './snippets';
 
 export {
   componentGen,
@@ -14,6 +19,9 @@ export {
   componentMutation,
   componentGetters,
   componentStoreIndex,
-  addComponentVue,
+  vuePage,
   listComponent,
+  routerSnippet,
+  storeImportSnippet,
+  storeModuleNameSnippet,
 };

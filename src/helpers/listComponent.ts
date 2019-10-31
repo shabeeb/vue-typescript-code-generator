@@ -1,4 +1,6 @@
 import { capitalize } from './common';
+import { excludeFieldList } from './config';
+
 const listComponent = (title: string, jsonValue: any) => {
   const lowercaseTitle = title.toLowerCase();
   const upperCaseTitle = title.toUpperCase();
@@ -30,9 +32,8 @@ const listComponent = (title: string, jsonValue: any) => {
                 ${tableHead(fieldNames)}
               </tr>
             </thead>
-            <!-- {{books}} -->
             <tbody>
-            ${tableBody(fieldNames, capitalizeTitle)}
+            ${tableBody(fieldNames, capitalizeTitle, lowercaseTitle)}
             </tbody>
           </template>
         </v-simple-table>
@@ -45,7 +46,7 @@ const listComponent = (title: string, jsonValue: any) => {
   const ${capitalizeTitle}Module = namespace('${capitalizeTitle}Module');
   
   @Component
-  export default class AddListComponent extends Vue {
+  export default class List${capitalizeTitle}Component extends Vue {
     @${capitalizeTitle}Module.Action('load${capitalizeTitle}') public load${capitalizeTitle}!: any;
     @${capitalizeTitle}Module.Getter('get${capitalizeTitle}List') public  get${capitalizeTitle}List!: [];
   
@@ -59,9 +60,9 @@ const listComponent = (title: string, jsonValue: any) => {
 };
 
 const tableHead = (fileds: any) => {
-  const excludeFieldList = ['created', 'modified', 'id'];
+  // const excludeFieldList = ['created', 'modified', 'id'];
 
-  let filedsList: string = '';
+  let filedsList: string = '<th class="text-left">SI</th>';
   fileds.map((field: any) => {
     if (!excludeFieldList.includes(field)) {
       filedsList += `   <th class="text-left">${field}</th>`;
@@ -71,13 +72,14 @@ const tableHead = (fileds: any) => {
   return filedsList;
 };
 
-const tableBody = (fileds: any, capitalizeTitle: any) => {
-  const excludeFieldList = ['created', 'modified', 'id'];
+const tableBody = (fileds: any, capitalizeTitle: any, lowercaseTitle: any) => {
+  // const excludeFieldList = ['created', 'modified', 'id'];
 
-  let filedsList: string = `<tr v-for="${capitalizeTitle} in  get${capitalizeTitle}List" :key="${capitalizeTitle}.id">`;
+  let filedsList: string = `<tr v-for="(${lowercaseTitle} ,idx) in  get${capitalizeTitle}List" :key="${lowercaseTitle}.id">
+  <td>{{ idx+1 }}</td>`;
   fileds.map((field: any) => {
     if (!excludeFieldList.includes(field)) {
-      filedsList += `   <td>{{ ${capitalizeTitle}.${field} }}</td>`;
+      filedsList += `   <td>{{ ${lowercaseTitle}.${field} }}</td>`;
     }
   });
   filedsList += ' </tr>';

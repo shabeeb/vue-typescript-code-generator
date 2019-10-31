@@ -1,0 +1,37 @@
+import { capitalize } from './common';
+
+const routerSnippet = (title: string) => {
+  const lowercaseTitle = title.toLowerCase();
+  const upperCaseTitle = title.toUpperCase();
+  const capitalizeTitle = capitalize(title);
+  const newComponent = `
+    {
+        path: '/${lowercaseTitle}',
+        name: '${lowercaseTitle}',
+        // route level code-splitting
+        // this generates a separate chunk (${lowercaseTitle}.[hash].js) for this route
+        // which is lazy-loaded when the route is visited.
+        component: () =>
+          import(/* webpackChunkName: "${lowercaseTitle}" */ '../views/${capitalizeTitle}.vue'),
+      },`;
+  return newComponent;
+};
+
+const storeImportSnippet = (title: string) => {
+  const lowercaseTitle = title.toLowerCase();
+  const upperCaseTitle = title.toUpperCase();
+  const capitalizeTitle = capitalize(title);
+  const newComponent = `
+    import ${capitalizeTitle}Module from './Modules/${capitalizeTitle}Module';`;
+  return newComponent;
+};
+
+const storeModuleNameSnippet = (title: string) => {
+  const lowercaseTitle = title.toLowerCase();
+  const upperCaseTitle = title.toUpperCase();
+  const capitalizeTitle = capitalize(title);
+  const newComponent = `${capitalizeTitle}Module`;
+  return newComponent;
+};
+
+export { routerSnippet, storeImportSnippet, storeModuleNameSnippet };
