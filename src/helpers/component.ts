@@ -60,7 +60,7 @@ const componentGen = (title: string, jsonValue: any) => {
  export default class ${capitalizeTitle}Component extends Vue {
    @${capitalizeTitle}Module.Getter('successStatus') public successStatus!: boolean;
    @${capitalizeTitle}Module.Getter('errorStatus') public errorStatus!: boolean;
-   @${capitalizeTitle}Module.Action('add${capitalizeTitle}') public add${title}Store!: any;
+   @${capitalizeTitle}Module.Action('add${capitalizeTitle}') public add${capitalizeTitle}Store!: any;
 ${componentVariables(fieldNames)}
 
 

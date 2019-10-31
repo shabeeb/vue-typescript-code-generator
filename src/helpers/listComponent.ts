@@ -24,7 +24,8 @@ const listComponent = (title: string, jsonValue: any) => {
       <!-- <v-alert type="success" v-if="successStatus">Author Added succesfully</v-alert>
       <v-alert type="error" v-if="errorStatus">Something went wrong...</v-alert>-->
   
-      <v-card-text>
+      <v-card-text v-if="get${capitalizeTitle}List.length == 0">No ${capitalizeTitle} found. Add one</v-card-text>
+      <v-card-text v-if="get${capitalizeTitle}List.length != 0">
         <v-simple-table fixed-header>
           <template v-slot:default>
             <thead>
@@ -65,7 +66,8 @@ const tableHead = (fileds: any) => {
   let filedsList: string = '<th class="text-left">SI</th>';
   fileds.map((field: any) => {
     if (!excludeFieldList.includes(field)) {
-      filedsList += `   <th class="text-left">${field}</th>`;
+      filedsList += `
+       <th class="text-left">${field}</th>`;
     }
   });
 
@@ -79,7 +81,8 @@ const tableBody = (fileds: any, capitalizeTitle: any, lowercaseTitle: any) => {
   <td>{{ idx+1 }}</td>`;
   fileds.map((field: any) => {
     if (!excludeFieldList.includes(field)) {
-      filedsList += `   <td>{{ ${lowercaseTitle}.${field} }}</td>`;
+      filedsList += `
+      <td>{{ ${lowercaseTitle}.${field} }}</td>`;
     }
   });
   filedsList += ' </tr>';

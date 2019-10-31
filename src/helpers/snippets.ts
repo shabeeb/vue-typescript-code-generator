@@ -34,4 +34,17 @@ const storeModuleNameSnippet = (title: string) => {
   return newComponent;
 };
 
-export { routerSnippet, storeImportSnippet, storeModuleNameSnippet };
+const configURLSnippet = (title: string, endPoint: string) => {
+  const lowercaseTitle = title.toLowerCase();
+  const upperCaseTitle = title.toUpperCase();
+  const capitalizeTitle = capitalize(title);
+  const newComponent = `export const ${upperCaseTitle}URL = '${endPoint}';`;
+  return newComponent;
+};
+
+export {
+  routerSnippet,
+  storeImportSnippet,
+  storeModuleNameSnippet,
+  configURLSnippet,
+};

@@ -12,7 +12,7 @@ import {  ${capitalizeTitle}State } from './types';
 import { RootState } from '../../types';
 
 /**
- * Author state
+ * ${lowercaseTitle} state
  */
 export const state:  ${capitalizeTitle}State = {
   ${lowercaseTitle}List: [],

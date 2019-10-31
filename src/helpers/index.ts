@@ -10,6 +10,7 @@ import {
   routerSnippet,
   storeImportSnippet,
   storeModuleNameSnippet,
+  configURLSnippet,
 } from './snippets';
 
 export {
@@ -24,4 +25,5 @@ export {
   routerSnippet,
   storeImportSnippet,
   storeModuleNameSnippet,
+  configURLSnippet,
 };

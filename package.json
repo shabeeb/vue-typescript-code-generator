@@ -1,5 +1,9 @@
 {
-  "name": "v1",
+  "name": "vue-typescript-code-generator",
+  "author": {
+    "name": "shabeeb",
+    "email": "mail@shabeebk.com"
+  },
   "version": "0.1.0",
   "private": true,
   "scripts": {

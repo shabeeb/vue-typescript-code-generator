@@ -33,9 +33,21 @@ export const mutations: MutationTree<${capitalizeTitle}State  > = {
   SET_${upperCaseTitle}LIST(state, payload: any) {
     state. ${lowercaseTitle}List = payload;
   },
+
+  /**
+   * set stae on success
+   * @param {*} state
+   * @param {*} payload
+   */
   SET_${upperCaseTitle}_SUCCESSFULLY(state, payload: any) {
     state.successStatus = payload;
   },
+  
+  /**
+   * set stae on error
+   * @param {*} state
+   * @param {*} payload
+   */
   SET_${upperCaseTitle}_ERROR(state, payload: any) {
     state.errorStatus = payload; 
   },

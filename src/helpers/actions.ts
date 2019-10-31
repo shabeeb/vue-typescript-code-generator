@@ -26,6 +26,9 @@ export const actions: ActionTree<${capitalizeTitle}State, RootState> = {
       commit('SET_${upperCaseTitle}_SUCCESSFULLY', true);
       commit('SET_${upperCaseTitle}_ERROR', false);
       dispatch('load${capitalizeTitle}');
+    }).catch(() => {
+      commit('SET_CONTACT_SUCCESSFULLY', false);
+      commit('SET_CONTACT_ERROR', true);
     });
   },
 
