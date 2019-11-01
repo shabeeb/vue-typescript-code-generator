@@ -1,0 +1,51 @@
+import { capitalize, snakeToCamel, camelToSnake } from '../common';
+const TestAddComponentGen = (title: string, jsonValue: any) => {
+  const capitalizeTitle = capitalize(title);
+  //   console.log(Object.keys(jsonValue));
+  const newComponent = `
+  /**
+   * List${capitalizeTitle} test
+   */
+
+import { shallowMount, createLocalVue } from '@vue/test-utils';
+import List${capitalizeTitle} from '@/components/Author/List${capitalizeTitle}.vue';
+
+import Vuex from 'vuex';
+import vuetify from 'vuetify';
+
+describe('component/Author/List${capitalizeTitle}.vue', () => {
+  let wrapper: any;
+  beforeEach(() => {
+    const localVue = createLocalVue();
+    localVue.use(Vuex);
+    localVue.use(vuetify);
+    const store = new Vuex.Store({
+      modules: {
+        AuthorModule: {
+          namespaced: true,
+          state: {},
+          getters: {
+            getAuthorList: jest.fn(() => [${JSON.stringify(jsonValue)}]),
+            successStatus: jest.fn(),
+            errorStatus: jest.fn(),
+          },
+          actions: {},
+        },
+      },
+    });
+    wrapper = shallowMount(List${capitalizeTitle}, {
+      localVue,
+      store,
+    });
+  });
+  it('renders props when passed', () => {
+    expect(wrapper.element).toMatchSnapshot();
+  });
+});
+
+ 
+ `;
+  return newComponent;
+};
+
+export default TestAddComponentGen;

@@ -22,7 +22,7 @@ const storeImportSnippet = (title: string) => {
   const upperCaseTitle = title.toUpperCase();
   const capitalizeTitle = capitalize(title);
   const newComponent = `
-    import ${capitalizeTitle}Module from './Modules/${capitalizeTitle}Module';`;
+    import ${capitalizeTitle}Module from './modules/${capitalizeTitle}';`;
   return newComponent;
 };
 

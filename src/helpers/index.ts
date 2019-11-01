@@ -6,6 +6,10 @@ import componentGetters from './getters';
 import componentStoreIndex from './storeindex';
 import vuePage from './vuePage';
 import listComponent from './listComponent';
+import vueTestGen from './tests/views';
+import TestAddComponentGen from './tests/TestAddComponent';
+import TestListComponent from './tests/TestListComponent';
+
 import {
   routerSnippet,
   storeImportSnippet,
@@ -26,4 +30,7 @@ export {
   storeImportSnippet,
   storeModuleNameSnippet,
   configURLSnippet,
+  vueTestGen,
+  TestAddComponentGen,
+  TestListComponent,
 };

@@ -24,14 +24,14 @@ export const mutations: MutationTree<${capitalizeTitle}State  > = {
     state.loading = flag;
   },
   /**
-   * Sets contact
+   * Sets ${lowercaseTitle}
    * @param {*} state
-   * @param payload contact list
+   * @param payload ${lowercaseTitle} list
    */
 
 
   SET_${upperCaseTitle}LIST(state, payload: any) {
-    state. ${lowercaseTitle}List = payload;
+    state.${lowercaseTitle}List = payload;
   },
 
   /**
@@ -42,7 +42,7 @@ export const mutations: MutationTree<${capitalizeTitle}State  > = {
   SET_${upperCaseTitle}_SUCCESSFULLY(state, payload: any) {
     state.successStatus = payload;
   },
-  
+
   /**
    * set stae on error
    * @param {*} state

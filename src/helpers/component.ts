@@ -1,4 +1,4 @@
-import { capitalize } from './common';
+import { capitalize, snakeToCamel, camelToSnake } from './common';
 import { excludeFieldList } from './config';
 const componentGen = (title: string, jsonValue: any) => {
   const lowercaseTitle = title.toLowerCase();
@@ -8,7 +8,9 @@ const componentGen = (title: string, jsonValue: any) => {
   const fieldNames = Object.keys(jsonValue);
   //   textFileds(fieldNames);
   const newComponent = `
-
+  /**
+   * ${capitalizeTitle}
+   */
  <template>
    <v-card class="mx-auto" style="max-width: 500px;">
      <!-- <v-system-bar color="deep-purple darken-4" dark>
@@ -21,9 +23,9 @@ const componentGen = (title: string, jsonValue: any) => {
      <v-alert type="error" v-if="errorStatus">Something went wrong...</v-alert>
 
      <v-toolbar color="deep-purple accent-4" cards dark flat>
-       <v-btn icon>
+     <!--   <v-btn icon>
          <v-icon>mdi-arrow-left</v-icon>
-       </v-btn>
+       </v-btn>-->
        <v-card-title class="title font-weight-regular">Add ${title}</v-card-title>
        <v-spacer></v-spacer>
        <!-- <v-btn icon>
@@ -57,24 +59,27 @@ const componentGen = (title: string, jsonValue: any) => {
  const ${capitalizeTitle}Module = namespace('${capitalizeTitle}Module');
 
  @Component
- export default class ${capitalizeTitle}Component extends Vue {
+ export default class Add${capitalizeTitle} extends Vue {
    @${capitalizeTitle}Module.Getter('successStatus') public successStatus!: boolean;
    @${capitalizeTitle}Module.Getter('errorStatus') public errorStatus!: boolean;
    @${capitalizeTitle}Module.Action('add${capitalizeTitle}') public add${capitalizeTitle}Store!: any;
 ${componentVariables(fieldNames)}
 
+private rules = {
+    length: (len: any) => (v: any) =>
+      (v || '').length >= len || 'Invalid character length, required' + len,
 
+    required: (v: any) => !!v || 'This field is required'
+  };
    private add${capitalizeTitle}() {
 
     ${addMethod(fieldNames)}
 
 
      this.add${capitalizeTitle}Store(data);
-     this.clearForm();
+     (this.$refs.form as HTMLFormElement).reset();
    }
-   private clearForm() {
-    ${clearMethod(fieldNames)}
-  }
+ 
  }
  </script>
  `;
@@ -88,13 +93,14 @@ const textFileds = (fileds: any) => {
   fileds.map((field: any) => {
     if (!excludeFieldList.includes(field)) {
       filedsList += `  <v-text-field
-                    v-model="${field}"
+                    v-model="${snakeToCamel(field)}"
                     filled
                     color="deep-purple"
-                    counter="6"
+                    counter="10"
                     label="${field}"
                     style="min-height: 96px"
                     type="text"
+                    :rules="[rules.required]"
                 ></v-text-field>`;
     }
   });
@@ -105,9 +111,10 @@ const textFileds = (fileds: any) => {
 const componentVariables = (fileds: any) => {
   let variableList: string = `  public form: boolean = false;
   private isLoading: boolean = false;`;
+
   fileds.map((field: any) => {
     if (!excludeFieldList.includes(field)) {
-      variableList += ` private ${field}: string = '';
+      variableList += ` private ${snakeToCamel(field)}: string = '';
     `;
     }
   });
@@ -119,22 +126,11 @@ const addMethod = (fileds: any) => {
   let variableList: string = 'const data = {';
   fileds.map((field: any) => {
     if (!excludeFieldList.includes(field)) {
-      variableList += ` ${field}: this.${field},
+      variableList += ` ${field}: this.${snakeToCamel(field)},
       `;
     }
   });
   variableList += '}';
-
-  return variableList;
-};
-
-const clearMethod = (fileds: any) => {
-  let variableList: string = '';
-  fileds.map((field: any) => {
-    if (!excludeFieldList.includes(field)) {
-      variableList += ` this.${field} = ''; `;
-    }
-  });
 
   return variableList;
 };
