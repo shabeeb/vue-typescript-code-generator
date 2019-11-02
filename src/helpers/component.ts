@@ -1,4 +1,9 @@
-import { capitalize, snakeToCamel, camelToSnake } from './common';
+import {
+  capitalize,
+  snakeToCamel,
+  snakeToLabel,
+  camelTToLabel,
+} from './common';
 import { excludeFieldList } from './config';
 const componentGen = (title: string, jsonValue: any) => {
   const lowercaseTitle = title.toLowerCase();
@@ -9,7 +14,7 @@ const componentGen = (title: string, jsonValue: any) => {
   //   textFileds(fieldNames);
   const newComponent = `
   /**
-   * ${capitalizeTitle}
+   * Add ${capitalizeTitle}
    */
  <template>
    <v-card class="mx-auto" style="max-width: 500px;">
@@ -97,7 +102,7 @@ const textFileds = (fileds: any) => {
                     filled
                     color="deep-purple"
                     counter="10"
-                    label="${field}"
+                    label="${capitalize(snakeToLabel(camelTToLabel(field)))}"
                     style="min-height: 96px"
                     type="text"
                     :rules="[rules.required]"

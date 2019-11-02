@@ -1,4 +1,4 @@
-import { capitalize } from './common';
+import { capitalize, snakeToLabel, camelTToLabel } from './common';
 import { excludeFieldList } from './config';
 
 const listComponent = (title: string, jsonValue: any) => {
@@ -11,7 +11,7 @@ const listComponent = (title: string, jsonValue: any) => {
   const newComponent = `
 
   /**
-   * ListViewComponent Page
+   * List${capitalizeTitle}  component
    */
   
   <template>
@@ -47,7 +47,7 @@ const listComponent = (title: string, jsonValue: any) => {
   const ${capitalizeTitle}Module = namespace('${capitalizeTitle}Module');
   
   @Component
-  export default class List${capitalizeTitle}Component extends Vue {
+  export default class List${capitalizeTitle} extends Vue {
     @${capitalizeTitle}Module.Action('load${capitalizeTitle}') public load${capitalizeTitle}!: any;
     @${capitalizeTitle}Module.Getter('get${capitalizeTitle}List') public  get${capitalizeTitle}List!: [];
   
@@ -67,7 +67,9 @@ const tableHead = (fileds: any) => {
   fileds.map((field: any) => {
     if (!excludeFieldList.includes(field)) {
       filedsList += `
-       <th class="text-left">${field}</th>`;
+       <th class="text-left">${capitalize(
+         snakeToLabel(camelTToLabel(field)),
+       )}</th>`;
     }
   });
 
