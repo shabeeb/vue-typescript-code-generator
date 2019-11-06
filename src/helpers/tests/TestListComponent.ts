@@ -13,7 +13,7 @@ import List${capitalizeTitle} from '@/components/Author/List${capitalizeTitle}.v
 import Vuex from 'vuex';
 import vuetify from 'vuetify';
 
-describe('component/Author/List${capitalizeTitle}.vue', () => {
+describe('component/${capitalizeTitle}/List${capitalizeTitle}.vue', () => {
   let wrapper: any;
   beforeEach(() => {
     const localVue = createLocalVue();
@@ -21,15 +21,17 @@ describe('component/Author/List${capitalizeTitle}.vue', () => {
     localVue.use(vuetify);
     const store = new Vuex.Store({
       modules: {
-        AuthorModule: {
+        ${capitalizeTitle}Module: {
           namespaced: true,
           state: {},
           getters: {
-            getAuthorList: jest.fn(() => [${JSON.stringify(jsonValue)}]),
+            get${capitalizeTitle}List: jest.fn(() => [${JSON.stringify(
+    jsonValue,
+  )}]),
             successStatus: jest.fn(),
             errorStatus: jest.fn(),
           },
-          actions: {},
+          actions: {load${capitalizeTitle}: jest.fn() },
         },
       },
     });

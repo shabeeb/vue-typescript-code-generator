@@ -8,6 +8,7 @@ const TestAddComponentGen = (title: string) => {
    */
   import { shallowMount, createLocalVue } from '@vue/test-utils';
 import Add${capitalizeTitle} from '@/components/${capitalizeTitle}/Add${capitalizeTitle}.vue';
+import VueRouter from 'vue-router';
 
 import Vuex from 'vuex';
 import vuetify from 'vuetify';
@@ -18,12 +19,14 @@ describe('component/${capitalizeTitle}/Add${capitalizeTitle}.vue', () => {
     const localVue = createLocalVue();
     localVue.use(Vuex);
     localVue.use(vuetify);
+    localVue.use(VueRouter);
+    const router = new VueRouter();
     const store = new Vuex.Store({
       modules: {
         AuthorModule: {
           namespaced: true,
           state: {},
-          getters: { successStatus: jest.fn(), errorStatus: jest.fn() },
+          getters: { successStatus: jest.fn(), errorStatus: jest.fn(),getSingle${capitalizeTitle}: jest.fn(), },
           actions: {},
         },
       },
@@ -31,6 +34,7 @@ describe('component/${capitalizeTitle}/Add${capitalizeTitle}.vue', () => {
     wrapper = shallowMount(Add${capitalizeTitle}, {
       localVue,
       store,
+      router,
     });
   });
   it('renders props when passed', () => {
