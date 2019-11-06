@@ -27,6 +27,14 @@ const componentGetters = (title: string, jsonValue: any) => {
     errorStatus(state) {
       return state.errorStatus;
     },
+    /**
+   * getSingle${capitalizeTitle}
+   * @param {*} state
+   * @returns  {object} ${lowercaseTitle}
+   */
+  getSingle${capitalizeTitle}(state) {
+    return state.single${capitalizeTitle};
+  },
   };
   
    `;

@@ -50,7 +50,12 @@ const listComponent = (title: string, jsonValue: any) => {
   export default class List${capitalizeTitle} extends Vue {
     @${capitalizeTitle}Module.Action('load${capitalizeTitle}') public load${capitalizeTitle}!: any;
     @${capitalizeTitle}Module.Getter('get${capitalizeTitle}List') public  get${capitalizeTitle}List!: [];
-  
+    @AuthorModule.Action('loadSingle${capitalizeTitle}') public loadSingle${capitalizeTitle}!: any;
+
+    private edit${capitalizeTitle}(id: number) {
+      this.loadSingle${capitalizeTitle}(id);
+      this.$router.push('/${lowercaseTitle}/' + id);
+    }
     private mounted() {
       this.load${capitalizeTitle}();
     }
@@ -72,7 +77,9 @@ const tableHead = (fileds: any) => {
        )}</th>`;
     }
   });
-
+  filedsList += ` <th>
+  Actions
+</th>`;
   return filedsList;
 };
 
@@ -87,7 +94,9 @@ const tableBody = (fileds: any, capitalizeTitle: any, lowercaseTitle: any) => {
       <td>{{ ${lowercaseTitle}.${field} }}</td>`;
     }
   });
-  filedsList += ' </tr>';
+  filedsList += ` <td>
+  <v-icon right @click="edit${capitalizeTitle}(${lowercaseTitle}.id)">mdi-pencil</v-icon>
+</td></tr>`;
   return filedsList;
 };
 

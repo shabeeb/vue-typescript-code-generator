@@ -458,10 +458,10 @@ export default class HelloWorld extends Vue {
   private timeout: number = 2000;
   private jsonvalue: string = ` {
     "created": "2019-10-10T05:59:56.999852",
-    "first_name": "author1 ",
+    "firstName": "author1 ",
     "id": 1,
-    "last_name": "last",
-    "middle_name": "",
+    "lastName": "last",
+    "middleName": "",
     "modified": "2019-10-10T05:59:56.999881"
   }`;
   private wrongJson: boolean = false;

@@ -12,6 +12,7 @@ const componentTypes = (title: string, jsonValue: any) => {
     loading?: boolean;
     successStatus?: boolean;
     errorStatus?: boolean;
+    single${capitalizeTitle}: ${capitalizeTitle}Model[];
   }
   export interface ${capitalizeTitle}Model {
     ${modalTypes(fieldNames)}

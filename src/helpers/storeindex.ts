@@ -19,6 +19,7 @@ export const state:  ${capitalizeTitle}State = {
   loading: false,
   successStatus: false,
   errorStatus: false,
+  single${capitalizeTitle}: [],
 };
 
 const namespaced: boolean = true;

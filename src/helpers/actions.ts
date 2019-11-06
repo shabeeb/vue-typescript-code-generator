@@ -27,8 +27,8 @@ export const actions: ActionTree<${capitalizeTitle}State, RootState> = {
       commit('SET_${upperCaseTitle}_ERROR', false);
       dispatch('load${capitalizeTitle}');
     }).catch(() => {
-      commit('SET_CONTACT_SUCCESSFULLY', false);
-      commit('SET_CONTACT_ERROR', true);
+      commit('SET_${upperCaseTitle}_SUCCESSFULLY', false);
+      commit('SET_${upperCaseTitle}_ERROR', true);
     });
   },
 
@@ -54,6 +54,45 @@ export const actions: ActionTree<${capitalizeTitle}State, RootState> = {
     commit('SET_${upperCaseTitle}_SUCCESSFULLY', false);
     commit('SET_${upperCaseTitle}_ERROR', false);
   },
+  /**
+   * load single ${lowercaseTitle}   by id from server and set to store
+   * @param {*} { commit }
+   */
+  loadSingle${capitalizeTitle}({ commit }, id) {
+    commit('SET_LOADING', true);
+    axios
+      .get(BASE_URL + ${upperCaseTitle}URL + '/' + id)
+      .then((r: any) => r.data)
+      .then((data: ${capitalizeTitle}Model[]) => {
+        commit('SET_EDIT_${upperCaseTitle}', data);
+        commit('SET_LOADING', false);
+      })
+      .catch(() => {
+        commit('SET_${upperCaseTitle}_SUCCESSFULLY', false);
+        commit('SET_${upperCaseTitle}_ERROR', true);
+      });
+  },
+  /**
+   * @param  {} {commit, dispatch}
+   * @param  {} ${lowercaseTitle}   list
+   */
+  update${capitalizeTitle}({ commit, dispatch }, data: any) {
+    commit('SET_LOADING', true);
+    axios
+      .put(BASE_URL + ${upperCaseTitle}URL + '/' + data.id, data)
+      .then(_ => {
+        commit('SET_LOADING', false);
+        commit('SET_${upperCaseTitle}_SUCCESSFULLY', true);
+        commit('SET_${upperCaseTitle}_ERROR', false);
+        dispatch('load${capitalizeTitle}');
+      })
+      .catch(() => {
+        commit('SET_LOADING', false);
+        commit('SET_${upperCaseTitle}_SUCCESSFULLY', false);
+        commit('SET_${upperCaseTitle}_ERROR', true);
+      });
+  },
+
 };
 
    `;
