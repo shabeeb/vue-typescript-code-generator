@@ -24,13 +24,13 @@ const componentGen = (title: string, jsonValue: any) => {
        <v-icon class="ml-1" small>mdi-circle</v-icon>
        <v-icon class="ml-1" small>mdi-triangle</v-icon>
      </v-system-bar>-->
-     <v-alert type="success" v-if="successStatus">${capitalizeTitle} {{isEditmode ? 'Updated' : 'Added'}} succesfully</v-alert>
-     <v-alert type="error" v-if="errorStatus">Something went wrong...</v-alert>
+     <!--  <v-alert type="success" v-if="successStatus">${capitalizeTitle} {{isEditmode ? 'Updated' : 'Added'}} succesfully</v-alert>
+     <v-alert type="error" v-if="errorStatus">Something went wrong...</v-alert>-->
 
      <v-toolbar color="deep-purple accent-4" cards dark flat>
-     <!--   <v-btn icon>
-         <v-icon>mdi-arrow-left</v-icon>
-       </v-btn>-->
+     <v-btn icon @click="$router.push('/${lowercaseTitle}/')">
+     <v-icon>mdi-arrow-left</v-icon>
+   </v-btn>
        <v-card-title class="title font-weight-regular">{{isEditmode ? 'Update' : 'Add'}} ${title}</v-card-title>
        <v-spacer></v-spacer>
        <!-- <v-btn icon>
@@ -86,8 +86,7 @@ private rules = {
   private ongetSingle${capitalizeTitle}Changed(val: any, oldVal: any) {
 
     ${watchMethod(fieldNames)}
-    
-   
+
   }
 
    private add${capitalizeTitle}() {
@@ -101,6 +100,7 @@ private rules = {
     }
      
      (this.$refs.form as HTMLFormElement).reset();
+     this.$router.push('/${lowercaseTitle}/');
    }
 
    private mounted() {

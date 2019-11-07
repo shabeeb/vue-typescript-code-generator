@@ -16,9 +16,14 @@ const listComponent = (title: string, jsonValue: any) => {
   
   <template>
     <v-card class="mx-auto">
+    <v-alert type="success" v-if="successStatus">${capitalizeTitle} Updated succesfully</v-alert>
+    <v-alert type="error" v-if="errorStatus">Something went wrong...</v-alert>
       <v-toolbar flat>
         <v-toolbar-title class="grey--text">All ${capitalizeTitle}</v-toolbar-title>
         <div class="flex-grow-1"></div>
+        <v-btn class="mx-2" fab dark color="indigo" @click="$router.push('/${lowercaseTitle}/add/');">
+        <v-icon dark>mdi-plus</v-icon>
+      </v-btn>
       </v-toolbar>
       <v-divider></v-divider>
       <!-- <v-alert type="success" v-if="successStatus">${capitalizeTitle} Added succesfully</v-alert>
@@ -48,6 +53,8 @@ const listComponent = (title: string, jsonValue: any) => {
   
   @Component
   export default class List${capitalizeTitle} extends Vue {
+    @${capitalizeTitle}Module.Getter('successStatus') public successStatus!: boolean;
+    @${capitalizeTitle}Module.Getter('errorStatus') public errorStatus!: boolean;
     @${capitalizeTitle}Module.Action('load${capitalizeTitle}') public load${capitalizeTitle}!: any;
     @${capitalizeTitle}Module.Getter('get${capitalizeTitle}List') public  get${capitalizeTitle}List!: [];
     @${capitalizeTitle}Module.Action('loadSingle${capitalizeTitle}') public loadSingle${capitalizeTitle}!: any;
@@ -95,7 +102,7 @@ const tableBody = (fileds: any, capitalizeTitle: any, lowercaseTitle: any) => {
     }
   });
   filedsList += ` <td>
-  <v-icon right @click="edit${capitalizeTitle}(${lowercaseTitle}.id)">mdi-pencil</v-icon>
+  <v-icon right @click="$router.push('/${lowercaseTitle}/add/'+ ${lowercaseTitle}.id)">mdi-pencil</v-icon>
 </td></tr>`;
   return filedsList;
 };
