@@ -8,15 +8,31 @@ const vuePage = (title: string, jsonValue: any) => {
   const newComponent = `
   <template>
   <div>
-    <Add${capitalizeTitle} />
-    <List${capitalizeTitle} />
+    <transition
+    mode="out-in"
+    appear
+    enter-active-class="animated fadeIn"
+    leave-active-class="animated fadeOut"
+  >
+    <Add${capitalizeTitle} v-if="showAdd"  class="v-fade" />
+  </transition>
+  <transition
+    mode="in-out"
+    appear
+    enter-active-class="animated fadeIn"
+    leave-active-class="animated fadeOut"
+  >
+    <List${capitalizeTitle} v-if="!showAdd" />
+  </transition>
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
+import { Component, Vue, Watch } from 'vue-property-decorator';
 import Add${capitalizeTitle} from '@/components/${capitalizeTitle}/Add${capitalizeTitle}.vue'; 
 import List${capitalizeTitle} from '@/components/${capitalizeTitle}/List${capitalizeTitle}.vue'; 
+import { namespace, Action } from 'vuex-class';
+const ${capitalizeTitle}Module = namespace('${capitalizeTitle}Module');
 
 @Component({
   components: {
@@ -24,7 +40,30 @@ import List${capitalizeTitle} from '@/components/${capitalizeTitle}/List${capita
     List${capitalizeTitle}
   }
 })
-export default class ${capitalizeTitle}View extends Vue {}
+export default class ${capitalizeTitle}View extends Vue {
+  @${capitalizeTitle}Module.Action('loadSingle${capitalizeTitle}') public loadSingle${capitalizeTitle}!: any;
+  private showAdd: boolean = false;
+
+  @Watch('$route', { immediate: true, deep: false })
+  private onUrlChange(updatedRoute: any) {
+    this.componenttoShow(updatedRoute);
+  }
+
+  private mounted() {
+    this.showAdd = false;
+    this.componenttoShow(this.$route);
+  }
+  private componenttoShow(routeValue: any) {
+    if (
+      routeValue.params &&
+      (routeValue.params.add && routeValue.params.add === 'add')
+    ) {
+      this.showAdd = true;
+    } else {
+      this.showAdd = false;
+    }
+  }
+}
 </script>
 
    `;
