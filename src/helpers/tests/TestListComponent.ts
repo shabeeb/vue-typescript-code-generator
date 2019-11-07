@@ -8,7 +8,7 @@ const TestAddComponentGen = (title: string, jsonValue: any) => {
    */
 
 import { shallowMount, createLocalVue } from '@vue/test-utils';
-import List${capitalizeTitle} from '@/components/Author/List${capitalizeTitle}.vue';
+import List${capitalizeTitle} from '@/components/${capitalizeTitle}/List${capitalizeTitle}.vue';
 
 import Vuex from 'vuex';
 import vuetify from 'vuetify';

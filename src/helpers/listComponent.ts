@@ -21,7 +21,7 @@ const listComponent = (title: string, jsonValue: any) => {
         <div class="flex-grow-1"></div>
       </v-toolbar>
       <v-divider></v-divider>
-      <!-- <v-alert type="success" v-if="successStatus">Author Added succesfully</v-alert>
+      <!-- <v-alert type="success" v-if="successStatus">${capitalizeTitle} Added succesfully</v-alert>
       <v-alert type="error" v-if="errorStatus">Something went wrong...</v-alert>-->
   
       <v-card-text v-if="get${capitalizeTitle}List.length == 0">No ${capitalizeTitle} found. Add one</v-card-text>
@@ -50,7 +50,7 @@ const listComponent = (title: string, jsonValue: any) => {
   export default class List${capitalizeTitle} extends Vue {
     @${capitalizeTitle}Module.Action('load${capitalizeTitle}') public load${capitalizeTitle}!: any;
     @${capitalizeTitle}Module.Getter('get${capitalizeTitle}List') public  get${capitalizeTitle}List!: [];
-    @AuthorModule.Action('loadSingle${capitalizeTitle}') public loadSingle${capitalizeTitle}!: any;
+    @${capitalizeTitle}Module.Action('loadSingle${capitalizeTitle}') public loadSingle${capitalizeTitle}!: any;
 
     private edit${capitalizeTitle}(id: number) {
       this.loadSingle${capitalizeTitle}(id);

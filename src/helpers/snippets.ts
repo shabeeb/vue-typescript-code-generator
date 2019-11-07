@@ -6,7 +6,7 @@ const routerSnippet = (title: string) => {
   const capitalizeTitle = capitalize(title);
   const newComponent = `
     {
-        path: '/${lowercaseTitle}',
+        path: '/${lowercaseTitle}/:id?',
         name: '${lowercaseTitle}',
         // route level code-splitting
         // this generates a separate chunk (${lowercaseTitle}.[hash].js) for this route

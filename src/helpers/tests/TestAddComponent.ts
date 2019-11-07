@@ -23,7 +23,7 @@ describe('component/${capitalizeTitle}/Add${capitalizeTitle}.vue', () => {
     const router = new VueRouter();
     const store = new Vuex.Store({
       modules: {
-        AuthorModule: {
+        ${capitalizeTitle}Module: {
           namespaced: true,
           state: {},
           getters: { successStatus: jest.fn(), errorStatus: jest.fn(),getSingle${capitalizeTitle}: jest.fn(), },
