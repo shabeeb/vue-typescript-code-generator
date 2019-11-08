@@ -84,9 +84,8 @@ private rules = {
 
   @Watch('getSingle${capitalizeTitle}')
   private ongetSingle${capitalizeTitle}Changed(val: any, oldVal: any) {
-
-    ${watchMethod(fieldNames)}
-
+    this.updteEdit(val);
+  
   }
 
    private add${capitalizeTitle}() {
@@ -104,15 +103,21 @@ private rules = {
      this.$router.push('/${lowercaseTitle}/');
    }
 
+   private updteEdit(val: any) {
+    ${watchMethod(fieldNames)}
+  }
+
    private mounted() {
     this.isEditmode = false;
     if (this.$route.params && this.$route.params.id) {
       const currentId = this.getSingle${capitalizeTitle} && this.getSingle${capitalizeTitle}.id;
       const paramId = this.$route.params.id;
-      if (currentId !== paramId) {
+      // if (currentId !== paramId) {
         this.isEditmode = true;
         this.loadSingle${capitalizeTitle}(paramId);
-      }
+      // }else {
+        // this.updteEdit(this.getSingle${capitalizeTitle});
+      // }
     }
   }
  

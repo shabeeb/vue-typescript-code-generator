@@ -31,8 +31,6 @@ const vuePage = (title: string, jsonValue: any) => {
 import { Component, Vue, Watch } from 'vue-property-decorator';
 import Add${capitalizeTitle} from '@/components/${capitalizeTitle}/Add${capitalizeTitle}.vue'; 
 import List${capitalizeTitle} from '@/components/${capitalizeTitle}/List${capitalizeTitle}.vue'; 
-import { namespace, Action } from 'vuex-class';
-const ${capitalizeTitle}Module = namespace('${capitalizeTitle}Module');
 
 @Component({
   components: {
@@ -41,7 +39,7 @@ const ${capitalizeTitle}Module = namespace('${capitalizeTitle}Module');
   }
 })
 export default class ${capitalizeTitle}View extends Vue {
-  @${capitalizeTitle}Module.Action('loadSingle${capitalizeTitle}') public loadSingle${capitalizeTitle}!: any;
+
   private showAdd: boolean = false;
 
   @Watch('$route', { immediate: true, deep: false })
