@@ -94,6 +94,7 @@ private rules = {
     ${addMethod(fieldNames)}
 
     if (this.isEditmode) {
+      data.id = this.id;
       this.update${capitalizeTitle}Store(data);
     } else {
       this.add${capitalizeTitle}Store(data);
@@ -158,14 +159,14 @@ const componentVariables = (fileds: any) => {
 };
 
 const addMethod = (fileds: any) => {
-  let variableList: string = 'const data = {';
+  let variableList: string = 'const data:any = {';
   fileds.map((field: any) => {
     if (!excludeFieldList.includes(field)) {
       variableList += ` ${field}: this.${snakeToCamel(field)},
       `;
     }
   });
-  variableList += ` id: this.id}`;
+  variableList += ` }`;
 
   return variableList;
 };

@@ -406,7 +406,10 @@
               <v-spacer></v-spacer>
             </v-toolbar>
             <v-hover v-slot:default="{ hover }" open-delay="0" close-delay="0">
-              <v-card-subtitle class="pb-0 pointer" @click="docopy(`List${capitalizeTitle}.ts`)">
+              <v-card-subtitle
+                class="pb-0 pointer"
+                @click="docopy(`List${capitalizeTitle}.spec.ts`)"
+              >
                 tests/unit/component/List{{capitalizeTitle}}.spec.ts
                 <v-icon right v-show="hover">mdi-content-copy</v-icon>
               </v-card-subtitle>
@@ -456,14 +459,7 @@ export default class HelloWorld extends Vue {
   private snackbar: boolean = false;
   private text: string = 'Copied';
   private timeout: number = 2000;
-  private jsonvalue: string = ` {
-    "created": "2019-10-10T05:59:56.999852",
-    "firstName": "author1 ",
-    "id": 1,
-    "lastName": "last",
-    "middleName": "",
-    "modified": "2019-10-10T05:59:56.999881"
-  }`;
+  private jsonvalue: string = ` {"id":"66ac7944-f962-4ce2-a24e-47df6a809d8e","firstName":"tes","middleName":"tset","lastName":"tset"}`;
   private wrongJson: boolean = false;
   // {
   //   "created": "2019-10-10T05:59:56.999852",

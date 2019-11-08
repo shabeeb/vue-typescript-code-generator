@@ -12,7 +12,7 @@ const routerSnippet = (title: string) => {
         // this generates a separate chunk (${lowercaseTitle}.[hash].js) for this route
         // which is lazy-loaded when the route is visited.
         component: () =>
-          import(/* webpackChunkName: "${lowercaseTitle}" */ '../views/${capitalizeTitle}.vue'),
+          import(/* webpackChunkName: "${lowercaseTitle}" */ './views/${capitalizeTitle}.vue'),
       },`;
   return newComponent;
 };

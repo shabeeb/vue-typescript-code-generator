@@ -60,6 +60,15 @@ export const mutations: MutationTree<${capitalizeTitle}State  > = {
   SET_EDIT_${upperCaseTitle}(state, payload: any) {
     state.single${capitalizeTitle} = payload;
   },
+  /**
+   * Sets message ${lowercaseTitle} 
+   * @param {*} state
+   * @param payload ${lowercaseTitle}   data
+   */
+
+  SET_${upperCaseTitle}_MESSAGE(state, payload: string) {
+    state.message = payload;
+  },
 };
    `;
   return newComponent;

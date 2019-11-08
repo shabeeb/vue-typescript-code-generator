@@ -35,6 +35,14 @@ const componentGetters = (title: string, jsonValue: any) => {
   getSingle${capitalizeTitle}(state) {
     return state.single${capitalizeTitle};
   },
+  /**
+   * get${capitalizeTitle}Message
+   * @param {*} state
+   * @returns  {object}  ${lowercaseTitle}
+   */
+  get${capitalizeTitle}Message(state) {
+    return state.message;
+  },
   };
   
    `;

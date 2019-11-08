@@ -14,7 +14,7 @@ const vuePage = (title: string, jsonValue: any) => {
     enter-active-class="animated fadeIn"
     leave-active-class="animated fadeOut"
   >
-    <Add${capitalizeTitle} v-if="showAdd"  class="v-fade" />
+    <Add${capitalizeTitle} v-if="showAdd"  class="absolute" />
   </transition>
   <transition
     mode="in-out"
@@ -22,7 +22,7 @@ const vuePage = (title: string, jsonValue: any) => {
     enter-active-class="animated fadeIn"
     leave-active-class="animated fadeOut"
   >
-    <List${capitalizeTitle} v-if="!showAdd" />
+    <List${capitalizeTitle} v-if="!showAdd"  />
   </transition>
   </div>
 </template>
@@ -65,7 +65,14 @@ export default class ${capitalizeTitle}View extends Vue {
   }
 }
 </script>
-
+<style lang="css" scoped>
+.absolute {
+  position: absolute;
+  width: 100%;
+  left: 0;
+  right: 0;
+}
+</style>
    `;
   return newComponent;
 };

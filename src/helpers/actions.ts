@@ -25,10 +25,12 @@ export const actions: ActionTree<${capitalizeTitle}State, RootState> = {
       commit('SET_LOADING', false);
       commit('SET_${upperCaseTitle}_SUCCESSFULLY', true);
       commit('SET_${upperCaseTitle}_ERROR', false);
+      commit('SET_AUTHOR_MESSAGE', '${capitalizeTitle} added successfully');
       dispatch('load${capitalizeTitle}');
     }).catch(() => {
       commit('SET_${upperCaseTitle}_SUCCESSFULLY', false);
       commit('SET_${upperCaseTitle}_ERROR', true);
+      commit('SET_AUTHOR_MESSAGE', '');
     });
   },
 
@@ -53,6 +55,7 @@ export const actions: ActionTree<${capitalizeTitle}State, RootState> = {
   clearStatus({ commit }) {
     commit('SET_${upperCaseTitle}_SUCCESSFULLY', false);
     commit('SET_${upperCaseTitle}_ERROR', false);
+    commit('SET_AUTHOR_MESSAGE', '');
   },
   /**
    * load single ${lowercaseTitle}   by id from server and set to store
@@ -66,6 +69,7 @@ export const actions: ActionTree<${capitalizeTitle}State, RootState> = {
       .then((data: ${capitalizeTitle}Model[]) => {
         commit('SET_EDIT_${upperCaseTitle}', data);
         commit('SET_LOADING', false);
+        
       })
       .catch(() => {
         commit('SET_${upperCaseTitle}_SUCCESSFULLY', false);
@@ -73,6 +77,7 @@ export const actions: ActionTree<${capitalizeTitle}State, RootState> = {
       });
   },
   /**
+   * update ${lowercaseTitle}
    * @param  {} {commit, dispatch}
    * @param  {} ${lowercaseTitle}   list
    */
@@ -84,12 +89,37 @@ export const actions: ActionTree<${capitalizeTitle}State, RootState> = {
         commit('SET_LOADING', false);
         commit('SET_${upperCaseTitle}_SUCCESSFULLY', true);
         commit('SET_${upperCaseTitle}_ERROR', false);
+        commit('SET_AUTHOR_MESSAGE', '${capitalizeTitle} Updated successfully');
         dispatch('load${capitalizeTitle}');
       })
       .catch(() => {
         commit('SET_LOADING', false);
         commit('SET_${upperCaseTitle}_SUCCESSFULLY', false);
         commit('SET_${upperCaseTitle}_ERROR', true);
+        commit('SET_AUTHOR_MESSAGE', '');
+      });
+  },
+  /**
+   * remove ${lowercaseTitle}
+   * @param  {} {commit, dispatch}
+   * @param  {} ${lowercaseTitle}   list
+   */
+  remove${capitalizeTitle}({ commit, dispatch }, id: any) {
+    commit('SET_LOADING', true);
+    axios
+      .delete(BASE_URL + ${upperCaseTitle}URL + '/' + id)
+      .then(_ => {
+        commit('SET_LOADING', false);
+        commit('SET_${upperCaseTitle}_SUCCESSFULLY', true);
+        commit('SET_${upperCaseTitle}_MESSAGE', '${capitalizeTitle} deleted successfully');
+        commit('SET_${upperCaseTitle}_ERROR', false);
+        dispatch('load${capitalizeTitle}');
+      })
+      .catch(() => {
+        commit('SET_LOADING', false);
+        commit('SET_${upperCaseTitle}_SUCCESSFULLY', false);
+        commit('SET_${upperCaseTitle}_ERROR', true);
+        commit('SET_${upperCaseTitle}_MESSAGE', '');
       });
   },
 

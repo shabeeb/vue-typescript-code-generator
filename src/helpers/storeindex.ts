@@ -20,6 +20,7 @@ export const state:  ${capitalizeTitle}State = {
   successStatus: false,
   errorStatus: false,
   single${capitalizeTitle}: [],
+  message: '',
 };
 
 const namespaced: boolean = true;

@@ -16,10 +16,16 @@ const listComponent = (title: string, jsonValue: any) => {
   
   <template>
     <v-card class="mx-auto">
-    <v-alert type="success" v-if="successStatus">${capitalizeTitle} Updated succesfully</v-alert>
-    <v-alert type="error" v-if="errorStatus">Something went wrong...</v-alert>
+
       <v-toolbar flat>
         <v-toolbar-title class="grey--text">All ${capitalizeTitle}</v-toolbar-title>
+        <div class="flex-grow-1"></div>
+        <v-col class="col-lg-4 col-md-5 col-8">
+          <v-alert type="success" v-if="successStatus" class="alert-top">
+          {{getAuthorMessage ? getAuthorMessage :'${capitalizeTitle} Updated succesfully'}}
+          </v-alert>
+          <v-alert type="error" v-if="errorStatus" class="alert-top">Something went wrong...</v-alert>
+        </v-col>
         <div class="flex-grow-1"></div>
         <v-btn class="mx-2" fab dark color="indigo" @click="$router.push('/${lowercaseTitle}/add/');">
         <v-icon dark>mdi-plus</v-icon>
@@ -47,7 +53,7 @@ const listComponent = (title: string, jsonValue: any) => {
     </v-card>
   </template>
   <script lang="ts">
-  import { Component, Vue } from 'vue-property-decorator';
+  import { Component, Vue, Watch } from 'vue-property-decorator';
   import { Getter, namespace, Action } from 'vuex-class';
   const ${capitalizeTitle}Module = namespace('${capitalizeTitle}Module');
   
@@ -58,16 +64,37 @@ const listComponent = (title: string, jsonValue: any) => {
     @${capitalizeTitle}Module.Action('load${capitalizeTitle}') public load${capitalizeTitle}!: any;
     @${capitalizeTitle}Module.Getter('get${capitalizeTitle}List') public  get${capitalizeTitle}List!: [];
     @${capitalizeTitle}Module.Action('loadSingle${capitalizeTitle}') public loadSingle${capitalizeTitle}!: any;
+    @${capitalizeTitle}Module.Action('clearStatus') public clearStatus!: any;
+    @${capitalizeTitle}Module.Action('remove${capitalizeTitle}') public remove${capitalizeTitle}!: any;
+    @${capitalizeTitle}Module.Getter('get${capitalizeTitle}Message') public get${capitalizeTitle}Message!: any;
 
+    
     private edit${capitalizeTitle}(id: number) {
       this.loadSingle${capitalizeTitle}(id);
       this.$router.push('/${lowercaseTitle}/' + id);
     }
+
+    @Watch('successStatus')
+  private onStatusChanged(val: any, oldVal: any) {
+    setTimeout(this.clearStatus, 3000);
+  }
+
+  private remove(id: string) {
+    const confrm = confirm('Are you sure to delete ?');
+    if (confrm) {
+      this.remove${capitalizeTitle}(id);
+    }
+  }
     private mounted() {
       this.load${capitalizeTitle}();
     }
   }
   </script>
+  <style scoped>
+  .alert-top {
+    margin-top: 17px;
+  }
+  </style>
  `;
   return newComponent;
 };
@@ -103,6 +130,7 @@ const tableBody = (fileds: any, capitalizeTitle: any, lowercaseTitle: any) => {
   });
   filedsList += ` <td>
   <v-icon right @click="$router.push('/${lowercaseTitle}/add/'+ ${lowercaseTitle}.id)">mdi-pencil</v-icon>
+  <v-icon right @click="remove(author.id)">mdi-delete</v-icon>
 </td></tr>`;
   return filedsList;
 };
