@@ -8,7 +8,7 @@ const TestAddComponentGen = (title: string) => {
    */
   import { shallowMount, createLocalVue } from '@vue/test-utils';
 import Add${capitalizeTitle} from '@/components/${capitalizeTitle}/Add${capitalizeTitle}.vue';
-import VueRouter from 'vue-router';
+// import VueRouter from 'vue-router';
 
 import Vuex from 'vuex';
 import vuetify from 'vuetify';
@@ -19,8 +19,14 @@ describe('component/${capitalizeTitle}/Add${capitalizeTitle}.vue', () => {
     const localVue = createLocalVue();
     localVue.use(Vuex);
     localVue.use(vuetify);
-    localVue.use(VueRouter);
-    const router = new VueRouter();
+    // localVue.use(VueRouter);
+    // const router = new VueRouter();
+    const $route = {
+      params: {
+        add: 'add',
+        id: '1',
+      },
+    };
     const store = new Vuex.Store({
       modules: {
         ${capitalizeTitle}Module: {
@@ -34,7 +40,10 @@ describe('component/${capitalizeTitle}/Add${capitalizeTitle}.vue', () => {
     wrapper = shallowMount(Add${capitalizeTitle}, {
       localVue,
       store,
-      router,
+      // router,
+      mocks: {
+        $route,
+      },
     });
   });
   it('renders props when passed', () => {

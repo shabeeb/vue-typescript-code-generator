@@ -68,12 +68,6 @@ const listComponent = (title: string, jsonValue: any) => {
     @${capitalizeTitle}Module.Action('remove${capitalizeTitle}') public remove${capitalizeTitle}!: any;
     @${capitalizeTitle}Module.Getter('get${capitalizeTitle}Message') public get${capitalizeTitle}Message!: any;
 
-    
-    private edit${capitalizeTitle}(id: number) {
-      this.loadSingle${capitalizeTitle}(id);
-      this.$router.push('/${lowercaseTitle}/' + id);
-    }
-
     @Watch('successStatus')
   private onStatusChanged(val: any, oldVal: any) {
     setTimeout(this.clearStatus, 3000);

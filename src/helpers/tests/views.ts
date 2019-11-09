@@ -18,9 +18,25 @@ describe('${capitalizeTitle}.vue', () => {
     const wrapper = shallowMount(${capitalizeTitle}, { localVue, router });
     expect(wrapper.element).toMatchSnapshot();
   });
+
+it('renders without crashing on edit ', () => {
+  const localVue = createLocalVue();
+  const $route = {
+    params: {
+      add: 'add',
+      id: '1',
+    },
+  };
+
+  const wrapper = shallowMount(${capitalizeTitle}, {
+    localVue,
+    mocks: {
+      $route,
+    },
+  });
+  expect(wrapper.element).toMatchSnapshot();
 });
-
-
+});
  `;
   return newComponent;
 };

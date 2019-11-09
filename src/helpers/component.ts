@@ -83,7 +83,7 @@ private rules = {
   };
 
   @Watch('getSingle${capitalizeTitle}')
-  private ongetSingle${capitalizeTitle}Changed(val: any, oldVal: any) {
+  private ongetSingle${capitalizeTitle}Changed(val: any) {
     this.updteEdit(val);
   
   }
@@ -110,7 +110,7 @@ private rules = {
    private mounted() {
     this.isEditmode = false;
     if (this.$route.params && this.$route.params.id) {
-      const currentId = this.getSingle${capitalizeTitle} && this.getSingle${capitalizeTitle}.id;
+      // const currentId = this.getSingle${capitalizeTitle} && this.getSingle${capitalizeTitle}.id;
       const paramId = this.$route.params.id;
       // if (currentId !== paramId) {
         this.isEditmode = true;
