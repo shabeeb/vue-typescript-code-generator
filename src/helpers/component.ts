@@ -2,7 +2,7 @@ import {
   capitalize,
   snakeToCamel,
   snakeToLabel,
-  camelTToLabel,
+  camelTToLabel
 } from './common';
 import { excludeFieldList } from './config';
 const componentGen = (title: string, jsonValue: any) => {
@@ -31,7 +31,7 @@ const componentGen = (title: string, jsonValue: any) => {
      <v-btn icon @click="$router.push('/${lowercaseTitle}/')">
      <v-icon>mdi-arrow-left</v-icon>
    </v-btn>
-       <v-card-title class="title font-weight-regular">{{isEditmode ? 'Update' : 'Add'}} ${title}</v-card-title>
+       <v-card-title class="title font-weight-regular">{{isEditmode ? 'Update' : 'Add'}} ${capitalizeTitle}</v-card-title>
        <v-spacer></v-spacer>
        <!-- <v-btn icon>
          <v-icon>mdi-magnify</v-icon>
@@ -85,7 +85,6 @@ private rules = {
   @Watch('getSingle${capitalizeTitle}')
   private ongetSingle${capitalizeTitle}Changed(val: any) {
     this.updteEdit(val);
-  
   }
 
    private add${capitalizeTitle}() {
@@ -98,7 +97,6 @@ private rules = {
     } else {
       this.add${capitalizeTitle}Store(data);
     }
-     
      (this.$refs.form as HTMLFormElement).reset();
      this.$router.push('/${lowercaseTitle}/');
    }
@@ -120,7 +118,6 @@ private rules = {
       // }
     }
   }
- 
  }
  </script>
  `;

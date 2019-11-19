@@ -1,5 +1,5 @@
 import { capitalize } from './common';
-const componentTypes = (title: string, jsonValue: any) => {
+const componentModals = (title: string, jsonValue: any) => {
   const lowercaseTitle = title.toLowerCase();
   const capitalizeTitle = capitalize(title);
   //   console.log(Object.keys(jsonValue));
@@ -7,15 +7,10 @@ const componentTypes = (title: string, jsonValue: any) => {
   //   textFileds(fieldNames);
   const newComponent = `
 
-  export interface ${capitalizeTitle}State {
-    ${lowercaseTitle}List: ${capitalizeTitle}Model[];
-    loading?: boolean;
-    successStatus?: boolean;
-    errorStatus?: boolean;
-    single${capitalizeTitle}: ${capitalizeTitle}Model[];
-    message: string;
-  }
 
+  export interface ${capitalizeTitle}Model {
+    ${modalTypes(fieldNames)}
+  }
    `;
   return newComponent;
 };
@@ -30,8 +25,4 @@ const modalTypes = (fileds: any) => {
   return modals;
 };
 
-export default componentTypes;
-
-// export interface ${capitalizeTitle}Model {
-//   ${modalTypes(fieldNames)}
-// }
+export default componentModals;

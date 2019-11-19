@@ -5,11 +5,16 @@ const componentActions = (title: string, jsonValue: any) => {
   const capitalizeTitle = capitalize(title);
 
   const newComponent = `import { ActionTree } from 'vuex';
-import { ${capitalizeTitle}State, ${capitalizeTitle}Model  } from './types';
+import { ${capitalizeTitle}State  } from './types';
 import { RootState } from '../../types';
-import { BASE_URL, ${upperCaseTitle}URL } from '@/config/urlList';
-import axios from '@/lib/axios';
-  
+
+import {
+  ${upperCaseTitle}_ADD_MESSAGE,
+  ${upperCaseTitle}_UPDATE_MESSAGE,
+  ${upperCaseTitle}_DELETE_MESSAGE
+} from '@/locales/en';
+import { ${capitalizeTitle}Service } from '@/services/${capitalizeTitle}Service';
+
 /**
  * ${lowercaseTitle} Actions
  *
@@ -19,108 +24,99 @@ export const actions: ActionTree<${capitalizeTitle}State, RootState> = {
    * @param  {} {commit, dispatch}
    * @param  {} ${lowercaseTitle}  list
    */
-  add${capitalizeTitle}({ commit, dispatch }, data) {
+  async add${capitalizeTitle}({ commit, dispatch }, data) {
     commit('SET_LOADING', true);
-    axios.post(BASE_URL + ${upperCaseTitle}URL + '/', data).then(_ => {
+    try {
+      await ${capitalizeTitle}Service.create${capitalizeTitle}(data);
       commit('SET_LOADING', false);
       commit('SET_${upperCaseTitle}_SUCCESSFULLY', true);
       commit('SET_${upperCaseTitle}_ERROR', false);
-      commit('SET_AUTHOR_MESSAGE', '${capitalizeTitle} added successfully');
+      commit('SET_${upperCaseTitle}_MESSAGE', ${upperCaseTitle}_ADD_MESSAGE);
       dispatch('load${capitalizeTitle}');
-    }).catch(() => {
+    } catch {
       commit('SET_${upperCaseTitle}_SUCCESSFULLY', false);
       commit('SET_${upperCaseTitle}_ERROR', true);
-      commit('SET_AUTHOR_MESSAGE', '');
-    });
+      commit('SET_${upperCaseTitle}_MESSAGE', '');
+    }
   },
 
   /**
    * load ${lowercaseTitle} from server and set to store
    * @param {*} { commit }
    */
-  load${capitalizeTitle}({ commit }) {
+  async load${capitalizeTitle}({ commit }) {
     commit('SET_LOADING', true);
-    axios
-      .get(BASE_URL + ${upperCaseTitle}URL + '/')
-      .then((r: any) => r.data)
-      .then((data : ${capitalizeTitle}Model[]) => {
-        commit('SET_${upperCaseTitle}LIST', data);
+    const ${lowercaseTitle} = await ${capitalizeTitle}Service.get${capitalizeTitle}s();
+        commit('SET_${upperCaseTitle}LIST', ${lowercaseTitle}.data);
         commit('SET_LOADING', false);
-      });
   },
   /**
    * clear message
    * @param {*} { commit }
    */
-  clearStatus({ commit }) {
+  async clearStatus({ commit }) {
     commit('SET_${upperCaseTitle}_SUCCESSFULLY', false);
     commit('SET_${upperCaseTitle}_ERROR', false);
-    commit('SET_AUTHOR_MESSAGE', '');
+    commit('SET_${upperCaseTitle}_MESSAGE', '');
   },
   /**
    * load single ${lowercaseTitle}   by id from server and set to store
    * @param {*} { commit }
    */
-  loadSingle${capitalizeTitle}({ commit }, id) {
+  async loadSingle${capitalizeTitle}({ commit }, id) {
     commit('SET_LOADING', true);
-    axios
-      .get(BASE_URL + ${upperCaseTitle}URL + '/' + id)
-      .then((r: any) => r.data)
-      .then((data: ${capitalizeTitle}Model[]) => {
-        commit('SET_EDIT_${upperCaseTitle}', data);
+
+      try {
+        const ${lowercaseTitle}  = await ${capitalizeTitle}Service.get${capitalizeTitle}ById(id);
+        commit('SET_EDIT_${upperCaseTitle}', ${lowercaseTitle} .data);
         commit('SET_LOADING', false);
-        
-      })
-      .catch(() => {
+      } catch {
         commit('SET_${upperCaseTitle}_SUCCESSFULLY', false);
         commit('SET_${upperCaseTitle}_ERROR', true);
-      });
+      }
+
   },
   /**
    * update ${lowercaseTitle}
    * @param  {} {commit, dispatch}
    * @param  {} ${lowercaseTitle}   list
    */
-  update${capitalizeTitle}({ commit, dispatch }, data: any) {
+  async update${capitalizeTitle}({ commit, dispatch }, data: any) {
     commit('SET_LOADING', true);
-    axios
-      .put(BASE_URL + ${upperCaseTitle}URL + '/' + data.id, data)
-      .then(_ => {
+    try {
+      const ${lowercaseTitle} = await ${capitalizeTitle}Service.update${capitalizeTitle}(data);
         commit('SET_LOADING', false);
         commit('SET_${upperCaseTitle}_SUCCESSFULLY', true);
         commit('SET_${upperCaseTitle}_ERROR', false);
-        commit('SET_AUTHOR_MESSAGE', '${capitalizeTitle} Updated successfully');
+        commit('SET_${upperCaseTitle}_MESSAGE', ${upperCaseTitle}_UPDATE_MESSAGE);
         dispatch('load${capitalizeTitle}');
-      })
-      .catch(() => {
+      } catch {
         commit('SET_LOADING', false);
         commit('SET_${upperCaseTitle}_SUCCESSFULLY', false);
         commit('SET_${upperCaseTitle}_ERROR', true);
-        commit('SET_AUTHOR_MESSAGE', '');
-      });
+        commit('SET_${upperCaseTitle}MESSAGE', '');
+      }
   },
   /**
    * remove ${lowercaseTitle}
    * @param  {} {commit, dispatch}
    * @param  {} ${lowercaseTitle}   list
    */
-  remove${capitalizeTitle}({ commit, dispatch }, id: any) {
+  async remove${capitalizeTitle}({ commit, dispatch }, id: any) {
     commit('SET_LOADING', true);
-    axios
-      .delete(BASE_URL + ${upperCaseTitle}URL + '/' + id)
-      .then(_ => {
+    try {
+      await ${capitalizeTitle}Service.delete${capitalizeTitle}(id);
         commit('SET_LOADING', false);
         commit('SET_${upperCaseTitle}_SUCCESSFULLY', true);
-        commit('SET_${upperCaseTitle}_MESSAGE', '${capitalizeTitle} deleted successfully');
+        commit('SET_${upperCaseTitle}_MESSAGE', ${upperCaseTitle}_DELETE_MESSAGE);
         commit('SET_${upperCaseTitle}_ERROR', false);
         dispatch('load${capitalizeTitle}');
-      })
-      .catch(() => {
+      } catch {
         commit('SET_LOADING', false);
         commit('SET_${upperCaseTitle}_SUCCESSFULLY', false);
         commit('SET_${upperCaseTitle}_ERROR', true);
         commit('SET_${upperCaseTitle}_MESSAGE', '');
-      });
+      }
   },
 
 };

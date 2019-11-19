@@ -142,6 +142,16 @@
                 </code>
               </v-hover>
             </div>
+
+            <v-card-subtitle class="pb-0">locales/en.ts</v-card-subtitle>
+            <div>
+              <v-hover v-slot:default="{ hover }" open-delay="0" close-delay="0">
+                <code @click="docopy(messageSnippetCode)">
+                  {{messageSnippetCode}}
+                  <v-icon right class="copystyle" v-show="hover">mdi-content-copy</v-icon>
+                </code>
+              </v-hover>
+            </div>
           </v-card>
         </v-col>
       </v-row>
@@ -320,6 +330,7 @@
             </v-card-text>
           </v-card>
         </v-col>
+
         <v-col cols="12" md="4">
           <v-card class="mx-auto fixed-height" max-width="600" v-if="showCode">
             <v-toolbar color="gray accent-4" dark>
@@ -346,6 +357,60 @@
           </v-card>
         </v-col>
       </v-row>
+      <v-row>
+        <v-col cols="12" md="4">
+          <v-card class="mx-auto fixed-height" max-width="600" v-if="showCode">
+            <v-toolbar color="gray accent-4" dark>
+              <v-toolbar-title>services / component</v-toolbar-title>
+
+              <v-spacer></v-spacer>
+            </v-toolbar>
+            <v-hover v-slot:default="{ hover }" open-delay="0" close-delay="0">
+              <v-card-subtitle class="pb-0 pointer" @click="docopy(`${capitalizeTitle}/Service`)">
+                services/{{capitalizeTitle}}/Service.ts
+                <v-icon right v-show="hover">mdi-content-copy</v-icon>
+              </v-card-subtitle>
+            </v-hover>
+            <v-card-text class="text--primary">
+              <!-- <div>Whitehaven Beach</div> -->
+
+              <v-hover v-slot:default="{ hover }" open-delay="0" close-delay="0">
+                <code @click="docopy(serviceComponent)">
+                  {{serviceComponent}}
+                  <v-icon right class="copystyle" v-show="hover">mdi-content-copy</v-icon>
+                </code>
+              </v-hover>
+            </v-card-text>
+          </v-card>
+        </v-col>
+
+        <v-col cols="12" md="4">
+          <v-card class="mx-auto fixed-height" max-width="600" v-if="showCode">
+            <v-toolbar color="gray accent-4" dark>
+              <v-toolbar-title>services / component</v-toolbar-title>
+
+              <v-spacer></v-spacer>
+            </v-toolbar>
+            <v-hover v-slot:default="{ hover }" open-delay="0" close-delay="0">
+              <v-card-subtitle class="pb-0 pointer" @click="docopy(`${capitalizeTitle}Model`)">
+                models/{{capitalizeTitle}}Model.ts
+                <v-icon right v-show="hover">mdi-content-copy</v-icon>
+              </v-card-subtitle>
+            </v-hover>
+            <v-card-text class="text--primary">
+              <!-- <div>Whitehaven Beach</div> -->
+
+              <v-hover v-slot:default="{ hover }" open-delay="0" close-delay="0">
+                <code @click="docopy(componentModalsGen)">
+                  {{componentModalsGen}}
+                  <v-icon right class="copystyle" v-show="hover">mdi-content-copy</v-icon>
+                </code>
+              </v-hover>
+            </v-card-text>
+          </v-card>
+        </v-col>
+      </v-row>
+
       <v-row>
         <v-col cols="12" md="4">Test Cases</v-col>
       </v-row>
@@ -448,7 +513,10 @@ import {
   configURLSnippet,
   vueTestGen,
   TestAddComponentGen,
-  TestListComponent
+  TestListComponent,
+  messageSnippet,
+  service,
+  componentModals
 } from '../helpers';
 import { capitalize } from '../helpers/common';
 
@@ -459,7 +527,15 @@ export default class HelloWorld extends Vue {
   private snackbar: boolean = false;
   private text: string = 'Copied';
   private timeout: number = 2000;
-  private jsonvalue: string = ` {"id":"66ac7944-f962-4ce2-a24e-47df6a809d8e","firstName":"tes","middleName":"tset","lastName":"tset"}`;
+  private jsonvalue: string = `{
+      "id": "1",
+      "referenceId": "123",
+      "firstName": "name",
+      "lastName": "last",
+      "email": "test@test.com",
+      "role": "contributor",
+      "createdDate": "2019-11-13"
+    }`;
   private wrongJson: boolean = false;
   // {
   //   "created": "2019-10-10T05:59:56.999852",
@@ -470,8 +546,8 @@ export default class HelloWorld extends Vue {
   //   "modified": "2019-10-10T05:59:56.999881"
   // }
 
-  private title: string = 'Author';
-  private endURL: string = 'authors';
+  private title: string = 'user';
+  private endURL: string = 'users';
   private componentFile: string = '';
   private componentTypeList: string = '';
   private componentActionsList: string = '';
@@ -489,6 +565,9 @@ export default class HelloWorld extends Vue {
   private vueTestFile: string = '';
   private addComponentTestFile: string = '';
   private listComponentTestFile: string = '';
+  private messageSnippetCode: string = '';
+  private serviceComponent: string = '';
+  private componentModalsGen: string = '';
 
   private rules = {
     length: (len: any) => (v: any) =>
@@ -521,6 +600,9 @@ export default class HelloWorld extends Vue {
       this.vueTestFile = vueTestGen(this.title);
       this.addComponentTestFile = TestAddComponentGen(this.title);
       this.listComponentTestFile = TestListComponent(this.title, parseJson);
+      this.messageSnippetCode = messageSnippet(this.title);
+      this.serviceComponent = service(this.title);
+      this.componentModalsGen = componentModals(this.title, parseJson);
 
       this.showCode = true;
       this.wrongJson = false;

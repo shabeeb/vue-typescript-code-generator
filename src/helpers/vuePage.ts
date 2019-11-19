@@ -29,8 +29,8 @@ const vuePage = (title: string, jsonValue: any) => {
 
 <script lang="ts">
 import { Component, Vue, Watch } from 'vue-property-decorator';
-import Add${capitalizeTitle} from '@/components/${capitalizeTitle}/Add${capitalizeTitle}.vue'; 
-import List${capitalizeTitle} from '@/components/${capitalizeTitle}/List${capitalizeTitle}.vue'; 
+import Add${capitalizeTitle} from '@/components/${capitalizeTitle}/Add${capitalizeTitle}.vue';
+import List${capitalizeTitle} from '@/components/${capitalizeTitle}/List${capitalizeTitle}.vue';
 
 @Component({
   components: {
@@ -63,14 +63,7 @@ export default class ${capitalizeTitle}View extends Vue {
   }
 }
 </script>
-<style lang="css" scoped>
-.absolute {
-  position: absolute;
-  width: 100%;
-  left: 0;
-  right: 0;
-}
-</style>
+
    `;
   return newComponent;
 };

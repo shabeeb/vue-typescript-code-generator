@@ -9,12 +9,15 @@ import listComponent from './listComponent';
 import vueTestGen from './tests/views';
 import TestAddComponentGen from './tests/TestAddComponent';
 import TestListComponent from './tests/TestListComponent';
+import service from './service';
+import componentModals from './modals';
 
 import {
   routerSnippet,
   storeImportSnippet,
   storeModuleNameSnippet,
   configURLSnippet,
+  messageSnippet
 } from './snippets';
 
 export {
@@ -33,4 +36,7 @@ export {
   vueTestGen,
   TestAddComponentGen,
   TestListComponent,
+  messageSnippet,
+  service,
+  componentModals
 };

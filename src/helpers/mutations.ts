@@ -49,10 +49,10 @@ export const mutations: MutationTree<${capitalizeTitle}State  > = {
    * @param {*} payload
    */
   SET_${upperCaseTitle}_ERROR(state, payload: any) {
-    state.errorStatus = payload; 
+    state.errorStatus = payload;
   },
   /**
-   * Sets single ${lowercaseTitle} 
+   * Sets single ${lowercaseTitle}
    * @param {*} state
    * @param payload ${lowercaseTitle}  data
    */
@@ -61,7 +61,7 @@ export const mutations: MutationTree<${capitalizeTitle}State  > = {
     state.single${capitalizeTitle} = payload;
   },
   /**
-   * Sets message ${lowercaseTitle} 
+   * Sets message ${lowercaseTitle}
    * @param {*} state
    * @param payload ${lowercaseTitle}   data
    */

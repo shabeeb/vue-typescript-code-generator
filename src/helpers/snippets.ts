@@ -12,7 +12,7 @@ const routerSnippet = (title: string) => {
         // this generates a separate chunk (${lowercaseTitle}.[hash].js) for this route
         // which is lazy-loaded when the route is visited.
         component: () =>
-          import(/* webpackChunkName: "${lowercaseTitle}" */ './views/${capitalizeTitle}.vue'),
+          import(/* webpackChunkName: "${lowercaseTitle}" */ '../views/${capitalizeTitle}.vue'),
       },`;
   return newComponent;
 };
@@ -38,7 +38,18 @@ const configURLSnippet = (title: string, endPoint: string) => {
   const lowercaseTitle = title.toLowerCase();
   const upperCaseTitle = title.toUpperCase();
   const capitalizeTitle = capitalize(title);
-  const newComponent = `export const ${upperCaseTitle}URL = '${endPoint}';`;
+  const newComponent = `export const ${upperCaseTitle}_URL = BASE_URL + '${endPoint}';`;
+  return newComponent;
+};
+
+const messageSnippet = (title: string) => {
+  const lowercaseTitle = title.toLowerCase();
+  const upperCaseTitle = title.toUpperCase();
+  const capitalizeTitle = capitalize(title);
+  const newComponent = `  export const ${upperCaseTitle}_ADD_MESSAGE = "${capitalizeTitle}  added successfully";
+  export const ${upperCaseTitle}_UPDATE_MESSAGE = "${capitalizeTitle} Updated successfully";
+  export const ${upperCaseTitle}_DELETE_MESSAGE = "${capitalizeTitle}  Deleted successfully";
+  `;
   return newComponent;
 };
 
@@ -47,4 +58,5 @@ export {
   storeImportSnippet,
   storeModuleNameSnippet,
   configURLSnippet,
+  messageSnippet
 };

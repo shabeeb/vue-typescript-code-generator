@@ -26,7 +26,7 @@ describe('component/${capitalizeTitle}/List${capitalizeTitle}.vue', () => {
           state: {},
           getters: {
             get${capitalizeTitle}List: jest.fn(() => [${JSON.stringify(
-    jsonValue,
+    jsonValue
   )}]),
             successStatus: jest.fn(),
             errorStatus: jest.fn(),
@@ -44,8 +44,6 @@ describe('component/${capitalizeTitle}/List${capitalizeTitle}.vue', () => {
     expect(wrapper.element).toMatchSnapshot();
   });
 });
-
- 
  `;
   return newComponent;
 };
