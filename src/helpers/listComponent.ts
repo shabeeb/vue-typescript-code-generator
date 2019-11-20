@@ -22,7 +22,7 @@ const listComponent = (title: string, jsonValue: any) => {
         <div class="flex-grow-1"></div>
         <v-col class="col-lg-4 col-md-5 col-8">
           <v-alert type="success" v-if="successStatus" class="alert-top">
-          {{getAuthorMessage ? getAuthorMessage : ${upperCaseTitle}_UPDATE_MESSAGE }}
+          {{get${capitalizeTitle}Message ? get${capitalizeTitle}Message : ${upperCaseTitle}_UPDATE_MESSAGE }}
           </v-alert>
           <v-alert type="error" v-if="errorStatus" class="alert-top">Something went wrong...</v-alert>
         </v-col>
