@@ -7,7 +7,6 @@ const componentTypes = (title: string, jsonValue: any) => {
   //   textFileds(fieldNames);
   const newComponent = `
   import { ${capitalizeTitle}Model } from '@/models/${capitalizeTitle}Model';
-  
   export interface ${capitalizeTitle}State {
     ${lowercaseTitle}List: ${capitalizeTitle}Model[];
     loading?: boolean;
