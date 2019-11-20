@@ -13,7 +13,7 @@ const listComponent = (title: string, jsonValue: any) => {
   /**
    * List${capitalizeTitle}  component
    */
-  
+
   <template>
     <v-card class="mx-auto">
 
@@ -22,7 +22,7 @@ const listComponent = (title: string, jsonValue: any) => {
         <div class="flex-grow-1"></div>
         <v-col class="col-lg-4 col-md-5 col-8">
           <v-alert type="success" v-if="successStatus" class="alert-top">
-          {{getAuthorMessage ? getAuthorMessage :'${capitalizeTitle} Updated succesfully'}}
+          {{get${capitalizeTitle}Message ? get${capitalizeTitle}Message : ${upperCaseTitle}_UPDATE_MESSAGE }}
           </v-alert>
           <v-alert type="error" v-if="errorStatus" class="alert-top">Something went wrong...</v-alert>
         </v-col>
@@ -34,7 +34,7 @@ const listComponent = (title: string, jsonValue: any) => {
       <v-divider></v-divider>
       <!-- <v-alert type="success" v-if="successStatus">${capitalizeTitle} Added succesfully</v-alert>
       <v-alert type="error" v-if="errorStatus">Something went wrong...</v-alert>-->
-  
+
       <v-card-text v-if="get${capitalizeTitle}List.length == 0">No ${capitalizeTitle} found. Add one</v-card-text>
       <v-card-text v-if="get${capitalizeTitle}List.length != 0">
         <v-simple-table fixed-header>
@@ -55,8 +55,9 @@ const listComponent = (title: string, jsonValue: any) => {
   <script lang="ts">
   import { Component, Vue, Watch } from 'vue-property-decorator';
   import { Getter, namespace, Action } from 'vuex-class';
+  import { ${upperCaseTitle}_UPDATE_MESSAGE } from '../../locales/en';
   const ${capitalizeTitle}Module = namespace('${capitalizeTitle}Module');
-  
+
   @Component
   export default class List${capitalizeTitle} extends Vue {
     @${capitalizeTitle}Module.Getter('successStatus') public successStatus!: boolean;
@@ -101,7 +102,7 @@ const tableHead = (fileds: any) => {
     if (!excludeFieldList.includes(field)) {
       filedsList += `
        <th class="text-left">${capitalize(
-         snakeToLabel(camelTToLabel(field)),
+         snakeToLabel(camelTToLabel(field))
        )}</th>`;
     }
   });

@@ -7,7 +7,7 @@ const componentGetters = (title: string, jsonValue: any) => {
   import { GetterTree } from 'vuex';
   import { ${capitalizeTitle}State  } from './types';
   import { RootState } from '../../types';
-  
+
   /**
    * Getters
    */
@@ -17,7 +17,7 @@ const componentGetters = (title: string, jsonValue: any) => {
      * @param {*} state
      * @returns  {object} ${lowercaseTitle}
      */
-  
+
     get${capitalizeTitle}List(state) {
       return state.${lowercaseTitle}List;
     },
@@ -44,7 +44,7 @@ const componentGetters = (title: string, jsonValue: any) => {
     return state.message;
   },
   };
-  
+
    `;
   return newComponent;
 };

@@ -50,7 +50,6 @@ describe('component/${capitalizeTitle}/Add${capitalizeTitle}.vue', () => {
     expect(wrapper.element).toMatchSnapshot();
   });
 });
- 
  `;
   return newComponent;
 };

@@ -6,7 +6,7 @@ const componentTypes = (title: string, jsonValue: any) => {
   const fieldNames = Object.keys(jsonValue);
   //   textFileds(fieldNames);
   const newComponent = `
-
+  import { ${capitalizeTitle}Model } from '@/models/${capitalizeTitle}Model';
   export interface ${capitalizeTitle}State {
     ${lowercaseTitle}List: ${capitalizeTitle}Model[];
     loading?: boolean;
@@ -15,9 +15,7 @@ const componentTypes = (title: string, jsonValue: any) => {
     single${capitalizeTitle}: ${capitalizeTitle}Model[];
     message: string;
   }
-  export interface ${capitalizeTitle}Model {
-    ${modalTypes(fieldNames)}
-  }
+
    `;
   return newComponent;
 };
@@ -25,7 +23,7 @@ const componentTypes = (title: string, jsonValue: any) => {
 const modalTypes = (fileds: any) => {
   let modals: string = '';
   fileds.map((field: any) => {
-    modals += ` ${field}: string; 
+    modals += ` ${field}: string;
     `;
   });
 
@@ -33,3 +31,7 @@ const modalTypes = (fileds: any) => {
 };
 
 export default componentTypes;
+
+// export interface ${capitalizeTitle}Model {
+//   ${modalTypes(fieldNames)}
+// }
