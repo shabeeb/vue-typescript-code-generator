@@ -666,13 +666,10 @@ export default class HelloWorld extends Vue {
   private text: string = 'Copied';
   private timeout: number = 2000;
   private jsonvalue: string = `{
-      "id": "1",
-      "referenceId": "123",
-      "firstName": "name",
-      "lastName": "last",
-      "email": "test@test.com",
-      "role": "contributor",
-      "createdDate": "2019-11-13"
+      "name": "asf",
+      "description": "sad",
+      "completed": "s",
+      "id": "4423392"
     }`;
   private wrongJson: boolean = false;
   // {
@@ -684,8 +681,8 @@ export default class HelloWorld extends Vue {
   //   "modified": "2019-10-10T05:59:56.999881"
   // }
 
-  private title: string = 'user';
-  private endURL: string = 'users';
+  private title: string = 'todo';
+  private endURL: string = 'todo';
   private componentFile: string = '';
   private componentTypeList: string = '';
   private componentActionsList: string = '';

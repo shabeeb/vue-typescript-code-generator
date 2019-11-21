@@ -18,7 +18,7 @@ const componentGen = (title: string, jsonValue: any) => {
    */
  <template>
    <v-card class="mx-auto" style="max-width: 500px;">
-     <!-- <v-system-bar color="deep-purple darken-4" dark>
+     <!-- <v-system-bar color="indigo darken-4" dark>
        <v-spacer></v-spacer>
        <v-icon small>mdi-square</v-icon>
        <v-icon class="ml-1" small>mdi-circle</v-icon>
@@ -27,7 +27,7 @@ const componentGen = (title: string, jsonValue: any) => {
      <!--  <v-alert type="success" v-if="successStatus">${capitalizeTitle} {{isEditmode ? 'Updated' : 'Added'}} succesfully</v-alert>
      <v-alert type="error" v-if="errorStatus">Something went wrong...</v-alert>-->
 
-     <v-toolbar color="deep-purple accent-4" cards dark flat>
+     <v-toolbar color="indigo accent-4" cards dark flat>
      <v-btn icon @click="$router.push('/${lowercaseTitle}/')">
      <v-icon>mdi-arrow-left</v-icon>
    </v-btn>
@@ -51,7 +51,7 @@ const componentGen = (title: string, jsonValue: any) => {
          :disabled="!form"
          :loading="isLoading"
          class="white--text"
-         color="deep-purple accent-4"
+         color="indigo accent-4"
          depressed
          @click="add${capitalizeTitle}"
        >{{isEditmode ? 'Update' : 'Submit'}}</v-btn>
@@ -74,11 +74,10 @@ const componentGen = (title: string, jsonValue: any) => {
 ${componentVariables(fieldNames)}
 private id: string = '';
 private isEditmode: boolean = false;
-
+/* istanbul ignore next */
 private rules = {
     length: (len: any) => (v: any) =>
       (v || '').length >= len || 'Invalid character length, required' + len,
-
     required: (v: any) => !!v || 'This field is required'
   };
 
@@ -133,7 +132,7 @@ const textFileds = (fileds: any) => {
       filedsList += `  <v-text-field
                     v-model="${snakeToCamel(field)}"
                     filled
-                    color="deep-purple"
+                    color="indigo"
                     counter="10"
                     label="${capitalize(snakeToLabel(camelTToLabel(field)))}"
                     style="min-height: 96px"

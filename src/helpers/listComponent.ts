@@ -125,7 +125,7 @@ const tableBody = (fileds: any, capitalizeTitle: any, lowercaseTitle: any) => {
   });
   filedsList += ` <td>
   <v-icon right @click="$router.push('/${lowercaseTitle}/add/'+ ${lowercaseTitle}.id)">mdi-pencil</v-icon>
-  <v-icon right @click="remove(author.id)">mdi-delete</v-icon>
+  <v-icon right @click="remove(${lowercaseTitle}.id)">mdi-delete</v-icon>
 </td></tr>`;
   return filedsList;
 };
