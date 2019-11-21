@@ -33,7 +33,7 @@ describe('component/${capitalizeTitle}/Add${capitalizeTitle}.vue', () => {
           namespaced: true,
           state: {},
           getters: { successStatus: jest.fn(), errorStatus: jest.fn(),getSingle${capitalizeTitle}: jest.fn(), },
-          actions: {},
+          actions: {loadSingle${capitalizeTitle}: jest.fn() },
         },
       },
     });

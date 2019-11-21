@@ -1,4 +1,5 @@
 import { capitalize } from './common';
+import { MODULE_FOLDER_NAME } from '@/constants/filenames';
 
 const routerSnippet = (title: string) => {
   const lowercaseTitle = title.toLowerCase();
@@ -6,8 +7,9 @@ const routerSnippet = (title: string) => {
   const capitalizeTitle = capitalize(title);
   const newComponent = `
     {
-        path: '/${lowercaseTitle}/:add?/:id?',
+        path: '/${lowercaseTitle}/:action?/:id?',
         name: '${lowercaseTitle}',
+        props: true,
         // route level code-splitting
         // this generates a separate chunk (${lowercaseTitle}.[hash].js) for this route
         // which is lazy-loaded when the route is visited.
@@ -22,7 +24,7 @@ const storeImportSnippet = (title: string) => {
   const upperCaseTitle = title.toUpperCase();
   const capitalizeTitle = capitalize(title);
   const newComponent = `
-    import ${capitalizeTitle}Module from './modules/${capitalizeTitle}';`;
+    import ${capitalizeTitle}Module from './${MODULE_FOLDER_NAME}/${capitalizeTitle}';`;
   return newComponent;
 };
 

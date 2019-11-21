@@ -1,11 +1,14 @@
 import { capitalize } from './common';
-const vuePage = (title: string, jsonValue: any) => {
-  const lowercaseTitle = title.toLowerCase();
-  const upperCaseTitle = title.toUpperCase();
+const vuePage = (title: string) => {
+  // const lowercaseTitle = title.toLowerCase();
+  // const upperCaseTitle = title.toUpperCase();
   //   console.log(Object.keys(jsonValue));
   const capitalizeTitle = capitalize(title);
   //   const fieldNames = Object.keys(jsonValue);
   const newComponent = `
+  /**
+ * ${capitalizeTitle} page
+ */
   <template>
   <div>
     <transition
@@ -14,7 +17,7 @@ const vuePage = (title: string, jsonValue: any) => {
     enter-active-class="animated fadeIn"
     leave-active-class="animated fadeOut"
   >
-    <Add${capitalizeTitle} v-if="showAdd"  class="absolute" />
+    <Add${capitalizeTitle} v-if="showAdd"  class="absolute"  :id="id" :action="action" />
   </transition>
   <transition
     mode="in-out"
@@ -22,13 +25,13 @@ const vuePage = (title: string, jsonValue: any) => {
     enter-active-class="animated fadeIn"
     leave-active-class="animated fadeOut"
   >
-    <List${capitalizeTitle} v-if="!showAdd"  />
+    <List${capitalizeTitle} v-if="!showAdd" :id="id"   />
   </transition>
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue, Watch } from 'vue-property-decorator';
+import { Component, Vue, Watch, Prop } from 'vue-property-decorator';
 import Add${capitalizeTitle} from '@/components/${capitalizeTitle}/Add${capitalizeTitle}.vue';
 import List${capitalizeTitle} from '@/components/${capitalizeTitle}/List${capitalizeTitle}.vue';
 
@@ -39,28 +42,38 @@ import List${capitalizeTitle} from '@/components/${capitalizeTitle}/List${capita
   }
 })
 export default class ${capitalizeTitle}View extends Vue {
+  @Prop({ default: '' })
+  public action!: string;
+  @Prop({ default: '' })
+  public id!: string;
 
   private showAdd: boolean = false;
 
+
+  /**
+   * update props on route change
+   */
   @Watch('$route', { immediate: true, deep: false })
   private onUrlChange(updatedRoute: any) {
-    this.componenttoShow(updatedRoute);
+    this.componenttoShow();
   }
 
   private mounted() {
     this.showAdd = false;
-    this.componenttoShow(this.$route);
+    this.componenttoShow();
   }
-  private componenttoShow(routeValue: any) {
-    if (
-      routeValue.params &&
-      (routeValue.params.add && routeValue.params.add === 'add')
-    ) {
+
+  /**
+   * setting view/edit/list to show
+   * @description
+   */
+  private componenttoShow() {
+    this.showAdd = false;
+    if (this.action && (this.action === 'add' || this.action === 'edit')) {
       this.showAdd = true;
-    } else {
-      this.showAdd = false;
     }
   }
+
 }
 </script>
 

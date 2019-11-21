@@ -1,4 +1,5 @@
 import { capitalize } from './common';
+import { MODAL_FOLDER_NAME } from '@/constants/filenames';
 const componentTypes = (title: string, jsonValue: any) => {
   const lowercaseTitle = title.toLowerCase();
   const capitalizeTitle = capitalize(title);
@@ -6,7 +7,7 @@ const componentTypes = (title: string, jsonValue: any) => {
   const fieldNames = Object.keys(jsonValue);
   //   textFileds(fieldNames);
   const newComponent = `
-  import { ${capitalizeTitle}Model } from '@/models/${capitalizeTitle}Model';
+  import { ${capitalizeTitle}Model } from '@/${MODAL_FOLDER_NAME}/${capitalizeTitle}Model';
   export interface ${capitalizeTitle}State {
     ${lowercaseTitle}List: ${capitalizeTitle}Model[];
     loading?: boolean;

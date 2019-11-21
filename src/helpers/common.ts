@@ -1,4 +1,4 @@
-const capitalize = (s: string) => s && s[0].toUpperCase() + s.slice(1);
+const capitalize = (str: string) => str && str[0].toUpperCase() + str.slice(1);
 
 const snakeToCamel = (str: string) =>
   str.replace(/([-_][a-z])/g, (group: string) =>

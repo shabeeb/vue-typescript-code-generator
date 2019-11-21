@@ -9,7 +9,7 @@ const componentGetters = (title: string, jsonValue: any) => {
   import { RootState } from '../../types';
 
   /**
-   * Getters
+   * Getters ${capitalizeTitle}
    */
   export const getters: GetterTree<${capitalizeTitle}State , RootState> = {
     /**

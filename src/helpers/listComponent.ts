@@ -22,7 +22,7 @@ const listComponent = (title: string, jsonValue: any) => {
         <div class="flex-grow-1"></div>
         <v-col class="col-lg-4 col-md-5 col-8">
           <v-alert type="success" v-if="successStatus" class="alert-top">
-          {{get${capitalizeTitle}Message ? get${capitalizeTitle}Message : ${upperCaseTitle}_UPDATE_MESSAGE }}
+          {{get${capitalizeTitle}Message ? get${capitalizeTitle}Message : message }}
           </v-alert>
           <v-alert type="error" v-if="errorStatus" class="alert-top">Something went wrong...</v-alert>
         </v-col>
@@ -32,8 +32,7 @@ const listComponent = (title: string, jsonValue: any) => {
       </v-btn>
       </v-toolbar>
       <v-divider></v-divider>
-      <!-- <v-alert type="success" v-if="successStatus">${capitalizeTitle} Added succesfully</v-alert>
-      <v-alert type="error" v-if="errorStatus">Something went wrong...</v-alert>-->
+
 
       <v-card-text v-if="get${capitalizeTitle}List.length == 0">No ${capitalizeTitle} found. Add one</v-card-text>
       <v-card-text v-if="get${capitalizeTitle}List.length != 0">
@@ -68,6 +67,10 @@ const listComponent = (title: string, jsonValue: any) => {
     @${capitalizeTitle}Module.Action('clearStatus') public clearStatus!: any;
     @${capitalizeTitle}Module.Action('remove${capitalizeTitle}') public remove${capitalizeTitle}!: any;
     @${capitalizeTitle}Module.Getter('get${capitalizeTitle}Message') public get${capitalizeTitle}Message!: any;
+
+
+    private message: string = ${upperCaseTitle}_UPDATE_MESSAGE ;
+
 
     @Watch('successStatus')
   private onStatusChanged(val: any, oldVal: any) {
@@ -124,8 +127,8 @@ const tableBody = (fileds: any, capitalizeTitle: any, lowercaseTitle: any) => {
     }
   });
   filedsList += ` <td>
-  <v-icon right @click="$router.push('/${lowercaseTitle}/add/'+ ${lowercaseTitle}.id)">mdi-pencil</v-icon>
-  <v-icon right @click="remove(author.id)">mdi-delete</v-icon>
+  <v-icon right @click="$router.push('/${lowercaseTitle}/edit/'+ ${lowercaseTitle}.id)">mdi-pencil</v-icon>
+  <v-icon right @click="remove(${lowercaseTitle}.id)">mdi-delete</v-icon>
 </td></tr>`;
   return filedsList;
 };
