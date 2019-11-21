@@ -7,9 +7,9 @@ import {
 import { excludeFieldList } from './config';
 const componentGen = (title: string, jsonValue: any) => {
   const lowercaseTitle = title.toLowerCase();
-  const upperCaseTitle = title.toUpperCase();
+  // const upperCaseTitle = title.toUpperCase();
   const capitalizeTitle = capitalize(title);
-  //   console.log(Object.keys(jsonValue));
+
   const fieldNames = Object.keys(jsonValue);
   //   textFileds(fieldNames);
   const newComponent = `
@@ -18,12 +18,7 @@ const componentGen = (title: string, jsonValue: any) => {
    */
  <template>
    <v-card class="mx-auto" style="max-width: 500px;">
-     <!-- <v-system-bar color="indigo darken-4" dark>
-       <v-spacer></v-spacer>
-       <v-icon small>mdi-square</v-icon>
-       <v-icon class="ml-1" small>mdi-circle</v-icon>
-       <v-icon class="ml-1" small>mdi-triangle</v-icon>
-     </v-system-bar>-->
+
      <!--  <v-alert type="success" v-if="successStatus">${capitalizeTitle} {{isEditmode ? 'Updated' : 'Added'}} succesfully</v-alert>
      <v-alert type="error" v-if="errorStatus">Something went wrong...</v-alert>-->
 
@@ -33,12 +28,7 @@ const componentGen = (title: string, jsonValue: any) => {
    </v-btn>
        <v-card-title class="title font-weight-regular">{{isEditmode ? 'Update' : 'Add'}} ${capitalizeTitle}</v-card-title>
        <v-spacer></v-spacer>
-       <!-- <v-btn icon>
-         <v-icon>mdi-magnify</v-icon>
-       </v-btn>
-       <v-btn icon>
-         <v-icon>mdi-dots-vertical</v-icon>
-       </v-btn>-->
+
      </v-toolbar>
      <v-form ref="form" v-model="form" class="pa-4 pt-6">
        ${textFileds(fieldNames)}
@@ -59,27 +49,35 @@ const componentGen = (title: string, jsonValue: any) => {
    </v-card>
  </template>
  <script lang="ts">
- import { Component, Vue, Watch } from 'vue-property-decorator';
+ import { Component, Vue, Watch, Prop } from 'vue-property-decorator';
  import { Getter, namespace, Action } from 'vuex-class';
  const ${capitalizeTitle}Module = namespace('${capitalizeTitle}Module');
 
  @Component
  export default class Add${capitalizeTitle} extends Vue {
+  @Prop({ default: '' })
+  public id!: string;
+  @Prop({ default: '' })
+  public action!: string;
+
+
    @${capitalizeTitle}Module.Getter('successStatus') public successStatus!: boolean;
    @${capitalizeTitle}Module.Getter('errorStatus') public errorStatus!: boolean;
    @${capitalizeTitle}Module.Action('add${capitalizeTitle}') public add${capitalizeTitle}Store!: any;
    @${capitalizeTitle}Module.Getter('getSingle${capitalizeTitle}') public getSingle${capitalizeTitle}!: any;
    @${capitalizeTitle}Module.Action('update${capitalizeTitle}') public update${capitalizeTitle}Store!: any;
    @${capitalizeTitle}Module.Action('loadSingle${capitalizeTitle}') public loadSingle${capitalizeTitle}!: any;
+
 ${componentVariables(fieldNames)}
-private id: string = '';
-private isEditmode: boolean = false;
-/* istanbul ignore next */
-private rules = {
-    length: (len: any) => (v: any) =>
-      (v || '').length >= len || 'Invalid character length, required' + len,
-    required: (v: any) => !!v || 'This field is required'
-  };
+
+  // private id: string = '';
+  private isEditmode: boolean = false;
+  /* istanbul ignore next */
+  private rules = {
+      length: (len: any) => (v: any) =>
+        (v || '').length >= len || 'Invalid character length, required' + len,
+      required: (v: any) => !!v || 'This field is required'
+    };
 
   @Watch('getSingle${capitalizeTitle}')
   private ongetSingle${capitalizeTitle}Changed(val: any) {
@@ -104,17 +102,11 @@ private rules = {
     ${watchMethod(fieldNames)}
   }
 
-   private mounted() {
+  private mounted() {
     this.isEditmode = false;
-    if (this.$route.params && this.$route.params.id) {
-      // const currentId = this.getSingle${capitalizeTitle} && this.getSingle${capitalizeTitle}.id;
-      const paramId = this.$route.params.id;
-      // if (currentId !== paramId) {
-        this.isEditmode = true;
-        this.loadSingle${capitalizeTitle}(paramId);
-      // }else {
-        // this.updteEdit(this.getSingle${capitalizeTitle});
-      // }
+    if (this.action && (this.action === 'edit' && this.id !== '')) {
+      this.isEditmode = true;
+      this.loadSingleTodo(this.id);
     }
   }
  }

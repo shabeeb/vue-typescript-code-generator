@@ -1,4 +1,4 @@
-import componentGen from './component';
+import addEditComponent from './addEditComponent';
 import componentTypes from './types';
 import componentActions from './actions';
 import componentMutation from './mutations';
@@ -21,7 +21,7 @@ import {
 } from './snippets';
 
 export {
-  componentGen,
+  addEditComponent,
   componentTypes,
   componentActions,
   componentMutation,

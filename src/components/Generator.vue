@@ -12,9 +12,7 @@
   </div>-->
   <v-form v-model="valid">
     <v-container>
-      <v-alert type="error" v-if="wrongJson"
-        >Looks like not a valid JSON, Please check again</v-alert
-      >
+      <v-alert type="error" v-if="wrongJson">Looks like not a valid JSON, Please check again</v-alert>
       <v-row>
         <v-snackbar v-model="snackbar" :timeout="timeout">
           {{ text }}
@@ -50,25 +48,12 @@
           ></v-textarea>
         </v-col>
 
-        <v-btn
-          :disabled="!valid"
-          color="success"
-          class="mr-4"
-          @click="addAuthor"
-          >Generate Code</v-btn
-        >
-        <!-- <v-col cols="12" md="4">
-          <v-text-field v-model="lastname" :counter="10" label="Last name" required></v-text-field>
-        </v-col>
-
-        <v-col cols="12" md="4">
-          <v-text-field v-model="email" :rules="emailRules" label="E-mail" required></v-text-field>
-        </v-col>-->
+        <v-btn :disabled="!valid" color="success" class="mr-4" @click="addAuthor">Generate Code</v-btn>
       </v-row>
+    </v-container>
+    <v-container v-if="showCode">
       <v-row>
-        <v-card-text v-if="showCode"
-          >Click to copy code / file names</v-card-text
-        >
+        <v-card-text v-if="showCode">Click to copy code / file names</v-card-text>
         <v-col cols="12" md="6">
           <v-card class="mx-auto fixed-height" v-if="showCode">
             <v-toolbar color="gray accent-4" dark>
@@ -77,28 +62,12 @@
               <v-spacer></v-spacer>
             </v-toolbar>
 
-            <v-card-subtitle class="pb-0">
-              In router
-              <!-- <button
-                type="button"
-                v-clipboard:copy="`Add${title}.vue`"
-                v-clipboard:success="onCopy"
-                v-clipboard:error="onError"
-              >
-                <span class="mdi mdi-content-copy"></span>
-              </button>-->
-            </v-card-subtitle>
+            <v-card-subtitle class="pb-0">In router</v-card-subtitle>
             <div>
-              <v-hover
-                v-slot:default="{ hover }"
-                open-delay="0"
-                close-delay="0"
-              >
+              <v-hover v-slot:default="{ hover }" open-delay="0" close-delay="0">
                 <code @click="docopy(routerSnippetCode)">
                   {{ routerSnippetCode }}
-                  <v-icon right class="copystyle" v-show="hover"
-                    >mdi-content-copy</v-icon
-                  >
+                  <v-icon right class="copystyle" v-show="hover">mdi-content-copy</v-icon>
                 </code>
               </v-hover>
             </div>
@@ -112,82 +81,54 @@
               <v-spacer></v-spacer>
             </v-toolbar>
 
-            <v-card-subtitle class="pb-0">
-              In Store/index.ts import code
-            </v-card-subtitle>
+            <v-card-subtitle class="pb-0">In Store/index.ts import code</v-card-subtitle>
             <div>
-              <v-hover
-                v-slot:default="{ hover }"
-                open-delay="0"
-                close-delay="0"
-              >
+              <v-hover v-slot:default="{ hover }" open-delay="0" close-delay="0">
                 <code @click="docopy(storeImportSnippet)">
                   {{ storeImportSnippet }}
-                  <v-icon right class="copystyle" v-show="hover"
-                    >mdi-content-copy</v-icon
-                  >
+                  <v-icon right class="copystyle" v-show="hover">mdi-content-copy</v-icon>
                 </code>
               </v-hover>
             </div>
 
-            <v-card-subtitle class="pb-0">
-              In Store/index.ts inside module add below code to access module
-            </v-card-subtitle>
+            <v-card-subtitle
+              class="pb-0"
+            >In Store/index.ts inside module add below code to access module</v-card-subtitle>
 
             <v-hover v-slot:default="{ hover }" open-delay="0" close-delay="0">
               <code @click="docopy(moduleNameSnippet)">
                 {{ moduleNameSnippet }}
-                <v-icon right class="copystyle" v-show="hover"
-                  >mdi-content-copy</v-icon
-                >
+                <v-icon right class="copystyle" v-show="hover">mdi-content-copy</v-icon>
               </code>
             </v-hover>
-            <v-card-subtitle class="pb-0">
-              In config/urlList.ts inside module add below code to access module
-            </v-card-subtitle>
+            <v-card-subtitle
+              class="pb-0"
+            >In config/urlList.ts inside module add below code to access module</v-card-subtitle>
             <div>
-              <v-hover
-                v-slot:default="{ hover }"
-                open-delay="0"
-                close-delay="0"
-              >
+              <v-hover v-slot:default="{ hover }" open-delay="0" close-delay="0">
                 <code @click="docopy(configURLSnippet)">
                   {{ configURLSnippet }}
-                  <v-icon right class="copystyle" v-show="hover"
-                    >mdi-content-copy</v-icon
-                  >
+                  <v-icon right class="copystyle" v-show="hover">mdi-content-copy</v-icon>
                 </code>
               </v-hover>
             </div>
 
             <v-card-subtitle class="pb-0">Folder names to copy</v-card-subtitle>
             <div>
-              <v-hover
-                v-slot:default="{ hover }"
-                open-delay="0"
-                close-delay="0"
-              >
+              <v-hover v-slot:default="{ hover }" open-delay="0" close-delay="0">
                 <code @click="docopy(capitalizeTitle)">
                   {{ capitalizeTitle }}
-                  <v-icon right class="copystyle" v-show="hover"
-                    >mdi-content-copy</v-icon
-                  >
+                  <v-icon right class="copystyle" v-show="hover">mdi-content-copy</v-icon>
                 </code>
               </v-hover>
             </div>
 
             <v-card-subtitle class="pb-0">locales/en.ts</v-card-subtitle>
             <div>
-              <v-hover
-                v-slot:default="{ hover }"
-                open-delay="0"
-                close-delay="0"
-              >
+              <v-hover v-slot:default="{ hover }" open-delay="0" close-delay="0">
                 <code @click="docopy(messageSnippetCode)">
                   {{ messageSnippetCode }}
-                  <v-icon right class="copystyle" v-show="hover"
-                    >mdi-content-copy</v-icon
-                  >
+                  <v-icon right class="copystyle" v-show="hover">mdi-content-copy</v-icon>
                 </code>
               </v-hover>
             </div>
@@ -203,25 +144,16 @@
               <v-spacer></v-spacer>
             </v-toolbar>
             <v-hover v-slot:default="{ hover }" open-delay="0" close-delay="0">
-              <v-card-subtitle
-                class="pb-0 pointer"
-                @click="docopy(`${capitalizeTitle}.vue`)"
-              >
+              <v-card-subtitle class="pb-0 pointer" @click="docopy(`${capitalizeTitle}.vue`)">
                 views/{{ capitalizeTitle }}.vue
                 <v-icon right v-show="hover">mdi-content-copy</v-icon>
               </v-card-subtitle>
             </v-hover>
             <div>
-              <v-hover
-                v-slot:default="{ hover }"
-                open-delay="0"
-                close-delay="0"
-              >
+              <v-hover v-slot:default="{ hover }" open-delay="0" close-delay="0">
                 <code @click="docopy(vuePageComponent)">
                   {{ vuePageComponent }}
-                  <v-icon right class="copystyle" v-show="hover"
-                    >mdi-content-copy</v-icon
-                  >
+                  <v-icon right class="copystyle" v-show="hover">mdi-content-copy</v-icon>
                 </code>
               </v-hover>
             </div>
@@ -235,27 +167,16 @@
               <v-spacer></v-spacer>
             </v-toolbar>
             <v-hover v-slot:default="{ hover }" open-delay="0" close-delay="0">
-              <v-card-subtitle
-                class="pb-0 pointer"
-                @click="docopy(`Add${capitalizeTitle}.vue`)"
-              >
+              <v-card-subtitle class="pb-0 pointer" @click="docopy(`Add${capitalizeTitle}.vue`)">
                 component/{{ capitalizeTitle }}/Add{{ capitalizeTitle }}.vue
                 <v-icon right v-show="hover">mdi-content-copy</v-icon>
               </v-card-subtitle>
             </v-hover>
             <v-card-text class="text--primary">
-              <!-- <div>Whitehaven Beach</div> -->
-
-              <v-hover
-                v-slot:default="{ hover }"
-                open-delay="0"
-                close-delay="0"
-              >
-                <code @click="docopy(componentFile)">
-                  {{ componentFile }}
-                  <v-icon right class="copystyle" v-show="hover"
-                    >mdi-content-copy</v-icon
-                  >
+              <v-hover v-slot:default="{ hover }" open-delay="0" close-delay="0">
+                <code @click="docopy(addEditComponentFile)">
+                  {{ addEditComponentFile }}
+                  <v-icon right class="copystyle" v-show="hover">mdi-content-copy</v-icon>
                 </code>
               </v-hover>
             </v-card-text>
@@ -270,27 +191,16 @@
               <v-spacer></v-spacer>
             </v-toolbar>
             <v-hover v-slot:default="{ hover }" open-delay="0" close-delay="0">
-              <v-card-subtitle
-                class="pb-0 pointer"
-                @click="docopy(`List${capitalizeTitle}.vue`)"
-              >
+              <v-card-subtitle class="pb-0 pointer" @click="docopy(`List${capitalizeTitle}.vue`)">
                 component/{{ capitalizeTitle }}/List{{ capitalizeTitle }}.vue
                 <v-icon right v-show="hover">mdi-content-copy</v-icon>
               </v-card-subtitle>
             </v-hover>
             <v-card-text class="text--primary">
-              <!-- <div>Whitehaven Beach</div> -->
-
-              <v-hover
-                v-slot:default="{ hover }"
-                open-delay="0"
-                close-delay="0"
-              >
+              <v-hover v-slot:default="{ hover }" open-delay="0" close-delay="0">
                 <code @click="docopy(listComponentVueList)">
                   {{ listComponentVueList }}
-                  <v-icon right class="copystyle" v-show="hover"
-                    >mdi-content-copy</v-icon
-                  >
+                  <v-icon right class="copystyle" v-show="hover">mdi-content-copy</v-icon>
                 </code>
               </v-hover>
             </v-card-text>
@@ -314,9 +224,7 @@
             <v-hover v-slot:default="{ hover }" open-delay="0" close-delay="0">
               <code @click="docopy(componentTypeList)">
                 {{ componentTypeList }}
-                <v-icon right class="copystyle" v-show="hover"
-                  >mdi-content-copy</v-icon
-                >
+                <v-icon right class="copystyle" v-show="hover">mdi-content-copy</v-icon>
               </code>
             </v-hover>
           </v-card>
@@ -329,10 +237,7 @@
               <v-spacer></v-spacer>
             </v-toolbar>
             <v-hover v-slot:default="{ hover }" open-delay="0" close-delay="0">
-              <v-card-subtitle
-                class="pb-0 pointer"
-                @click="docopy(`actions.ts`)"
-              >
+              <v-card-subtitle class="pb-0 pointer" @click="docopy(`actions.ts`)">
                 store/modules/{{ capitalizeTitle }}/actions.ts
                 <v-icon right v-show="hover">mdi-content-copy</v-icon>
               </v-card-subtitle>
@@ -340,16 +245,10 @@
             <v-card-text class="text--primary">
               <!-- <div>Whitehaven Beach</div> -->
 
-              <v-hover
-                v-slot:default="{ hover }"
-                open-delay="0"
-                close-delay="0"
-              >
+              <v-hover v-slot:default="{ hover }" open-delay="0" close-delay="0">
                 <code @click="docopy(componentActionsList)">
                   {{ componentActionsList }}
-                  <v-icon right class="copystyle" v-show="hover"
-                    >mdi-content-copy</v-icon
-                  >
+                  <v-icon right class="copystyle" v-show="hover">mdi-content-copy</v-icon>
                 </code>
               </v-hover>
             </v-card-text>
@@ -363,10 +262,7 @@
               <v-spacer></v-spacer>
             </v-toolbar>
             <v-hover v-slot:default="{ hover }" open-delay="0" close-delay="0">
-              <v-card-subtitle
-                class="pb-0 pointer"
-                @click="docopy(`mutations.ts`)"
-              >
+              <v-card-subtitle class="pb-0 pointer" @click="docopy(`mutations.ts`)">
                 store/modules/{{ capitalizeTitle }}/mutations.ts
                 <v-icon right v-show="hover">mdi-content-copy</v-icon>
               </v-card-subtitle>
@@ -374,16 +270,10 @@
             <v-card-text class="text--primary">
               <!-- <div>Whitehaven Beach</div> -->
 
-              <v-hover
-                v-slot:default="{ hover }"
-                open-delay="0"
-                close-delay="0"
-              >
+              <v-hover v-slot:default="{ hover }" open-delay="0" close-delay="0">
                 <code @click="docopy(componentMutationList)">
                   {{ componentMutationList }}
-                  <v-icon right class="copystyle" v-show="hover"
-                    >mdi-content-copy</v-icon
-                  >
+                  <v-icon right class="copystyle" v-show="hover">mdi-content-copy</v-icon>
                 </code>
               </v-hover>
             </v-card-text>
@@ -399,10 +289,7 @@
             </v-toolbar>
 
             <v-hover v-slot:default="{ hover }" open-delay="0" close-delay="0">
-              <v-card-subtitle
-                class="pb-0 pointer"
-                @click="docopy(`getters.ts`)"
-              >
+              <v-card-subtitle class="pb-0 pointer" @click="docopy(`getters.ts`)">
                 store/modules/{{ capitalizeTitle }}/getters.ts
                 <v-icon right v-show="hover">mdi-content-copy</v-icon>
               </v-card-subtitle>
@@ -410,16 +297,10 @@
             <v-card-text class="text--primary">
               <!-- <div>Whitehaven Beach</div> -->
 
-              <v-hover
-                v-slot:default="{ hover }"
-                open-delay="0"
-                close-delay="0"
-              >
+              <v-hover v-slot:default="{ hover }" open-delay="0" close-delay="0">
                 <code @click="docopy(componentGettsList)">
                   {{ componentGettsList }}
-                  <v-icon right class="copystyle" v-show="hover"
-                    >mdi-content-copy</v-icon
-                  >
+                  <v-icon right class="copystyle" v-show="hover">mdi-content-copy</v-icon>
                 </code>
               </v-hover>
             </v-card-text>
@@ -442,16 +323,10 @@
             <v-card-text class="text--primary">
               <!-- <div>Whitehaven Beach</div> -->
 
-              <v-hover
-                v-slot:default="{ hover }"
-                open-delay="0"
-                close-delay="0"
-              >
+              <v-hover v-slot:default="{ hover }" open-delay="0" close-delay="0">
                 <code @click="docopy(componentIndexList)">
                   {{ componentIndexList }}
-                  <v-icon right class="copystyle" v-show="hover"
-                    >mdi-content-copy</v-icon
-                  >
+                  <v-icon right class="copystyle" v-show="hover">mdi-content-copy</v-icon>
                 </code>
               </v-hover>
             </v-card-text>
@@ -467,10 +342,7 @@
               <v-spacer></v-spacer>
             </v-toolbar>
             <v-hover v-slot:default="{ hover }" open-delay="0" close-delay="0">
-              <v-card-subtitle
-                class="pb-0 pointer"
-                @click="docopy(`${capitalizeTitle}Service.ts`)"
-              >
+              <v-card-subtitle class="pb-0 pointer" @click="docopy(`${capitalizeTitle}Service.ts`)">
                 services/{{ capitalizeTitle }}/Service.ts
                 <v-icon right v-show="hover">mdi-content-copy</v-icon>
               </v-card-subtitle>
@@ -478,16 +350,10 @@
             <v-card-text class="text--primary">
               <!-- <div>Whitehaven Beach</div> -->
 
-              <v-hover
-                v-slot:default="{ hover }"
-                open-delay="0"
-                close-delay="0"
-              >
+              <v-hover v-slot:default="{ hover }" open-delay="0" close-delay="0">
                 <code @click="docopy(serviceComponent)">
                   {{ serviceComponent }}
-                  <v-icon right class="copystyle" v-show="hover"
-                    >mdi-content-copy</v-icon
-                  >
+                  <v-icon right class="copystyle" v-show="hover">mdi-content-copy</v-icon>
                 </code>
               </v-hover>
             </v-card-text>
@@ -502,10 +368,7 @@
               <v-spacer></v-spacer>
             </v-toolbar>
             <v-hover v-slot:default="{ hover }" open-delay="0" close-delay="0">
-              <v-card-subtitle
-                class="pb-0 pointer"
-                @click="docopy(`${capitalizeTitle}Model.ts`)"
-              >
+              <v-card-subtitle class="pb-0 pointer" @click="docopy(`${capitalizeTitle}Model.ts`)">
                 models/{{ capitalizeTitle }}Model.ts
                 <v-icon right v-show="hover">mdi-content-copy</v-icon>
               </v-card-subtitle>
@@ -513,16 +376,10 @@
             <v-card-text class="text--primary">
               <!-- <div>Whitehaven Beach</div> -->
 
-              <v-hover
-                v-slot:default="{ hover }"
-                open-delay="0"
-                close-delay="0"
-              >
+              <v-hover v-slot:default="{ hover }" open-delay="0" close-delay="0">
                 <code @click="docopy(componentModalsGen)">
                   {{ componentModalsGen }}
-                  <v-icon right class="copystyle" v-show="hover"
-                    >mdi-content-copy</v-icon
-                  >
+                  <v-icon right class="copystyle" v-show="hover">mdi-content-copy</v-icon>
                 </code>
               </v-hover>
             </v-card-text>
@@ -542,10 +399,7 @@
               <v-spacer></v-spacer>
             </v-toolbar>
             <v-hover v-slot:default="{ hover }" open-delay="0" close-delay="0">
-              <v-card-subtitle
-                class="pb-0 pointer"
-                @click="docopy(`${capitalizeTitle}.spec.ts`)"
-              >
+              <v-card-subtitle class="pb-0 pointer" @click="docopy(`${capitalizeTitle}.spec.ts`)">
                 tests/unit/views/{{ capitalizeTitle }}.spec.ts
                 <v-icon right v-show="hover">mdi-content-copy</v-icon>
               </v-card-subtitle>
@@ -553,16 +407,10 @@
             <v-card-text class="text--primary">
               <!-- <div>Whitehaven Beach</div> -->
 
-              <v-hover
-                v-slot:default="{ hover }"
-                open-delay="0"
-                close-delay="0"
-              >
+              <v-hover v-slot:default="{ hover }" open-delay="0" close-delay="0">
                 <code @click="docopy(vueTestFile)">
                   {{ vueTestFile }}
-                  <v-icon right class="copystyle" v-show="hover"
-                    >mdi-content-copy</v-icon
-                  >
+                  <v-icon right class="copystyle" v-show="hover">mdi-content-copy</v-icon>
                 </code>
               </v-hover>
             </v-card-text>
@@ -580,7 +428,7 @@
                 @click="docopy(`Add${capitalizeTitle}.spec.ts`)"
               >
                 tests/unit/component/{{ capitalizeTitle }}/Add{{
-                  capitalizeTitle
+                capitalizeTitle
                 }}.spec.ts
                 <v-icon right v-show="hover">mdi-content-copy</v-icon>
               </v-card-subtitle>
@@ -588,9 +436,7 @@
             <v-hover v-slot:default="{ hover }" open-delay="0" close-delay="0">
               <code @click="docopy(addComponentTestFile)">
                 {{ addComponentTestFile }}
-                <v-icon right class="copystyle" v-show="hover"
-                  >mdi-content-copy</v-icon
-                >
+                <v-icon right class="copystyle" v-show="hover">mdi-content-copy</v-icon>
               </code>
             </v-hover>
           </v-card>
@@ -614,16 +460,10 @@
             <v-card-text class="text--primary">
               <!-- <div>Whitehaven Beach</div> -->
 
-              <v-hover
-                v-slot:default="{ hover }"
-                open-delay="0"
-                close-delay="0"
-              >
+              <v-hover v-slot:default="{ hover }" open-delay="0" close-delay="0">
                 <code @click="docopy(listComponentTestFile)">
                   {{ listComponentTestFile }}
-                  <v-icon right class="copystyle" v-show="hover"
-                    >mdi-content-copy</v-icon
-                  >
+                  <v-icon right class="copystyle" v-show="hover">mdi-content-copy</v-icon>
                 </code>
               </v-hover>
             </v-card-text>
@@ -637,7 +477,7 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import {
-  componentGen,
+  addEditComponent,
   componentTypes,
   componentActions,
   componentMutation,
@@ -683,7 +523,7 @@ export default class HelloWorld extends Vue {
 
   private title: string = 'todo';
   private endURL: string = 'todo';
-  private componentFile: string = '';
+  private addEditComponentFile: string = '';
   private componentTypeList: string = '';
   private componentActionsList: string = '';
   private componentMutationList: string = '';
@@ -715,26 +555,28 @@ export default class HelloWorld extends Vue {
     this.capitalizeTitle = capitalize(this.title);
     if (this.IsJsonString(this.jsonvalue)) {
       const parseJson = JSON.parse(this.jsonvalue);
-      this.componentFile = componentGen(this.title, parseJson);
+      // components code
+      this.addEditComponentFile = addEditComponent(this.title, parseJson);
       this.componentTypeList = componentTypes(this.title, parseJson);
       this.componentActionsList = componentActions(this.title, parseJson);
       this.componentMutationList = componentMutation(this.title, parseJson);
       this.componentGettsList = componentGetters(this.title, parseJson);
       this.componentIndexList = componentStoreIndex(this.title, parseJson);
-      //vue page
-      this.vuePageComponent = vuePage(this.title, parseJson);
+      // vue page
+      this.vuePageComponent = vuePage(this.title);
       this.listComponentVueList = listComponent(this.title, parseJson);
 
-      //code snippets
+      // code snippets
       this.routerSnippetCode = routerSnippet(this.title);
       this.moduleNameSnippet = storeModuleNameSnippet(this.title);
       this.storeImportSnippet = storeImportSnippet(this.title);
       this.configURLSnippet = configURLSnippet(this.title, this.endURL);
 
-      //test snippets
+      // test snippets
       this.vueTestFile = vueTestGen(this.title);
       this.addComponentTestFile = TestAddComponentGen(this.title);
       this.listComponentTestFile = TestListComponent(this.title, parseJson);
+
       this.messageSnippetCode = messageSnippet(this.title);
       this.serviceComponent = service(this.title);
       this.componentModalsGen = componentModals(this.title, parseJson);

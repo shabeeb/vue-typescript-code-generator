@@ -1,6 +1,5 @@
 import { capitalize } from './common';
 const componentModals = (title: string, jsonValue: any) => {
-  const lowercaseTitle = title.toLowerCase();
   const capitalizeTitle = capitalize(title);
   //   console.log(Object.keys(jsonValue));
   const fieldNames = Object.keys(jsonValue);
