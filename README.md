@@ -1,5 +1,13 @@
 # vue-typescript-code-generator
 
+
+
+## Starter kit
+
+check starter kit to setup vue typescript app [vue-vuex-typescript-starter](https://shabeeb.github.io/vue-vuex-typescript-starter/)
+
+
+
 ## Project setup
 
 ```
